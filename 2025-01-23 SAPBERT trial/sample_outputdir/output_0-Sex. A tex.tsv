@@ -1,0 +1,200 @@
+ezelurehr2	-1.1102230246251565e-16	Sex. A textual description of a person's sex at birth.
+rGEh0ckdmr	-0.10208989161939663	Sex at Birth. The physical sexual characteristics of the neonate at birth. A textual description of a person's sex at birth.
+6zw3RJZINg	-0.11790316587776684	Sex at Birth. The self-reported sex of the participant/subject at birth.
+mygNSAd6TL	-0.13238377296458836	Sex at Birth Type. Self-reported sex of the participant/subject at birth.
+gtqOBUXBf	-0.18213187959813681	Sex type. The sex of the subject/participant
+DmdfRvS3o	-0.19796041363271188	Birth sex assigned type. Self-reported phenotypic sex of participant/subject, assigned at birth.
+u1Cw5U4VUQ	-0.20513429703701103	What was your sex assigned at birth?. 
+2dyYtsn9	-0.22034142515069421	Sex type code. Code for the subject/participant's sex
+4Au0gE1VpU	-0.2228610299447943	Biological sex. 
+mJbVrC_a68	-0.23766267865103186	Sex at birth other text. Text describing another variety of the subject's self-proclaimed sex at his/her birth.
+E4t_5fkSQ	-0.2413511360341185	Sex of Family member. Sex of a family member, including sibling, parent, child, or other family member. To specify the family member relation, use Relationship to patient [LOINC: 54136-7].
+71qxF89inig	-0.2486504634538308	Sex. 
+Q1lYGnUrkv	-0.2553941075431764	Sex. Self-identified gender where gender is the assemblage of properties that distinguish people on the basis of the societal roles
+SdrSNxxC9_	-0.26290129983882193	Birth sex assigned type other text. The free-text field related to 'Birth sex assigned type', specifying other text.
+_Mw7TFu9fBP	-0.27717982437932354	Phenotypic sex child type. Sex of the participant/subject's child based on physical examination
+SytMgohDaJz	-0.2776198888476904	Sibling gender type. Reported gender of the sibling. Gender is the socially constructed identity of sex
+BFTXK85Q2tK	-0.2985060022998218	Sex of Participant. Used by the registry to generate the GUID
+NKwM4gsfXS	-0.30529439817486514	Gender. Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)
+LZiKSObKa	-0.3092146156408856	Sex [USSG-FHT]. Sex of the patient, created for the U.S. Surgeon General's Family Health History Portrait.
+71ExiROCjHf	-0.3160489862207051	"Sex [AHRQ]. The patient's documented sex (gender) on arrival at the hospital. This term was created for the ""Patient gender"" data element on the Agency for Healthcare Research and Quality (AHRQ) Healthcare Event Reporting Form (HERF), version 1.2. [https://ushik.ahrq.gov/ViewItemDetails?&system=mdr&itemKey=169064000&enableAsynchronousLoading=true]"
+jR_eSd2YxSS	-0.319989359659422	Sex participant or subject genotype other text. The free-text field related to 'Sex participant or subject genotype type' specifying other text. The difference between male and female, based upon the interactions between genes and between the genotype and the environment. Genotype is identified based on the individual's reproductive organs and functions assigned by chromosomal complement.
+J8ci_CzOgQ	-0.32112172395372296	Societal sex. This term was created for the U.S. Department of Health and Human Services (HHS) 2015 Edition Health Information Technology (Health IT) Certification Criteria final rule. [https://www.federalregister.gov/articles/2015/10/16/2015-25597/2015-edition-health-information-technology-health-it-certification-criteria-2015-edition-base]
+mkvbKsfiE	-0.32496828012705237	Animal species sex type. Type of animal species sex as determined by observation
+7kesFS5ZS8	-0.3278529254506214	Sex in the last year - Reported. A patient's self-report of sexual activity in the last 12 months.
+AkxFsMsug	-0.33319960848477803	Sex type code other text. The free-text field relating to 'Sex Type Code' specifying other text
+c15vK97pK5X	-0.33500142120470155	Gender type. Self-reported gender of the participant/subject.
+7ur8LWKKU	-0.33758786331611723	Gender identity type. Gender identity self-identified by the subject/participant. Gender type may or may not match sex assigned at birth.
+vqxNsvfcdhs	-0.3398097542265076	Family history gender type. Reported gender of the relative. Gender is the socially constructed identity of sex
+71lZioGo4	-0.34537166635659033	Animal sex type. Type of animal species sex as determined by observation
+w1cJPANW	-0.35805297783407186	Sex of animal participant/subject as reported by medical intervention or genotype type. Type of sex of animal participant/subject as reported by medical intervention or by genotype
+XkGctrqWr8	-0.36187480089833546	Ever had sex - Reported. A patient's self-report of ever being sexually active.
+71MomQmJyx	-0.36561366213014335	Gender Code. The code representing the gender of a person.
+ycXI6Qb_jf	-0.36759729799213914	Biological sex-other, specify. 
+XJiKrc_BI	-0.3739529462445552	Sex in the last 3 months - Reported. A patient's self-report of sexual activity in the last three months.
+lcxHxrPww	-0.3742905505475316	Sex of animal participant/subject as reported by medical intervention or genotype type other text. The free-text field related to 'Sex of animal participant/subject as reported by medical intervention or genotype type' specifying other text
+Rx2D0Tt5Uwd	-0.38605168528005973	Sex genotype type. The difference between male and female, based upon the interactions between genes and between the genotype and the environment. Genotype is identified based on the individual's reproductive organs and functions assigned by chromosomal complement.
+hNx1XUcZR5	-0.39341580877796456	Gender - Specify. Other - My gender identification is not a listed option for characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)
+dvEQ3Mi5w2	-0.3986335144666142	Sexual Orientation - Specify. The pattern of a person's emotional, romantic, and/or sexual attractions, not described in initial value selection list or secondary value selection list
+m18_28qonsg	-0.40866002288006764	Sex of relative family member [PhenX]. 
+N7bHP0vG1G	-0.41039204244175786	Gender - Select Other. Additional Options for characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)
+QJlQiFXUXU	-0.417938189165281	Would you like to answer the question referring to your sex life [FACIT]. 
+L4LirGyWRB	-0.418038105374243	Sexual Orientation. The pattern of a person's emotional, romantic, and/or sexual attractions.
+m1mZIvXgr0z	-0.4212705148409386	Sex decreased interest indicator. Indicator of whether the patient/participant has experienced decreased interest in sex.
+m17cWrcAq7	-0.4221919972702617	Parent gender type. Self-reported gender of the participant's/subject's parent. Gender is the socially constructed identity of sex. Gender is equated with phenotypic sex. Gender may differ from the sex of a parent determined genetically.
+06ArFWmaU7E	-0.429971486725911	World Health Organization Quality of Life (WHOQOL-BREF) - sex life scale. Scale used to assess sex life satisfaction, as part of the World Health Organization Quality of Life (WHQOL-BREF) questionnaire
+Zyxmbm4_C	-0.43613255022626063	How many times in the last year have you paid someone to have sex with you [Denver Youth Survey]. 
+7yxxYyUcRcQ	-0.4409700430998481	Family History Research Diagnostic Criteria (FH-RDC) - Gender type code. Code denoting the sex of the selected relative of the participant/subject, as part of the Family History - Research Diagnostic Criteria (FH-RDC)
+mk_pDdYapU	-0.4438414729903595	Sex hormones test type. The type of test performed in the Sex hormones lab panel.
+QkZndydhymg	-0.4502191081303424	In the past 30 days How often have you felt like you wanted to have sex?. 
+cJinh_sk6f	-0.45220360397783577	Sexual Orientation - Select Other. The pattern of a person's emotional, romantic, and/or sexual attractions, not described in initial value selection list
+XkE9Yyu2yXx	-0.45270905428272235	In the past 30 days How often have you thought that your sex life is wonderful?. 
+Qyw98XerAz	-0.45424841981123887	Subject ID. Subject identification ID
+a4ev6FPSc	-0.4568047645929626	How many times in the last year did you threaten or hurt someone to get them to have sex with you [Denver Youth Survey]. 
+7kFdxfE9iBA	-0.46035951862906677	Tanner stage pubic hair scale. The scale defining physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair to characterize stages of physical development in children, adolescents and adults.
+XkudlGEcjHR	-0.4728078803902389	Tanner stage genitalia scale. The scale defining physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair to characterize stages of physical development in children, adolescents and adults.
+m1mxtyU5R9Q	-0.47482404292115743	Family History Research Diagnostic Criteria (FH-RDC) - Shared child gender type. The sex of a child the participant/subject shares with his or her mate, as part of the Family History - Research Diagnostic Criteria (FH-RDC)
+7Jf5YJ_2kXg	-0.48784311005754655	In the past 30 days How satisfied have you been with your sex life?. 
+7Jdgotqs2sx	-0.49448313506754216	How many times in the last year have you been paid for having sexual relations with someone [Denver Youth Survey]. 
+7J_fddY6aL	-0.49693424690345334	DHEA-S test date and time. The date and time the subject's DHEA-S test was performed.
+vuhEgrPv5b4	-0.49725158937017455	Sexual Compulsivity (SCS) - sex thought work scale. I find myself thinking about sex while at work. As part of Sexual Compulsivity Scale (SCS) questionnaire
+710Ze_1unyQl	-0.499127170184121	Does your sexual activity ever involve inserting a dildo or other sex toy into your vagina?. 
+QyExJuconsx	-0.49993825592613306	How often did you have difficulty with lack of interest in sex [PhenX]. 
+QkfrF1OnJQx	-0.5001142097744302	People have more desire for sex when they drink.. 
+wFcQvdMAeUB	-0.5025513566689491	Stroke Specific Quality of Life Scale (SS-QOL) - sex social role scale. The scale for having sex less often based on Stroke Specific Quality of Life Scale (SS-QOL).
+my9loFqo3jg	-0.5034574067186175	How many times in the last year have you had or tried to have sexual relations with someone against their will, other than events you just mentioned [Denver Youth Survey]. 
+Xyzluyu2k7e	-0.5038256836461694	In the past 30 days How much has breast tenderness/enlargement affected your satisfaction with your sex life?. 
+_p9dHzoLsx	-0.505635264997579	Laboratory procedure gonadal function sex hormone binding globulin serum value. The value related to concentration of sex hormone binding globulin in the serum
+Xy8cY1_2k7x	-0.5162320082649084	In the past 30 days When you have had sexual activity, how much have you enjoyed it?. 
+QkxMeOJ_nkme	-0.5165032994048316	In the past 30 days How often have you had anal sex?. 
+P7b7UXAW6I	-0.5182129838530672	How many times in the last year have you been paid, or received other favors for having sex with someone [Denver Youth Survey]. 
+hfA60EMB7mf	-0.5202290365509266	Headache Screening Survey (HSS) - household member sex type. The sex of each members of a participant's household who suffer from severe headaches from Headache Screening Survey (HSS) which is a questionnaire that screens for alcohol dependency without it appearing to be the main focus of the instrument.
+mBKN_DbgI	-0.5220806458093581	Estradiol test date and time. The date and time the subject's Estradiol test was performed.
+ZtTACudtFcK	-0.5267458824584442	Site name. The name of the site for the study
+QkPqt1dh1Qg	-0.5269342071526104	In the past 30 days When you have had sexual activity, how satisfying has it been?. 
+mkX5FkdnJQl	-0.5330653492186626	In the past 30 days How much pleasure has your sex life given you?. 
+nSXRtkERXFM	-0.5332105010874206	Sexual Compulsivity (SCS) - sex thought more than want scale. I think about sex more than I would like to. As part of Sexual Compulsivity Scale (SCS) questionnaire
+m19euqinsg	-0.5351898506978612	Over the past 4 weeks how satisfied have you been with your overall sex life [PhenX]. 
+QyZ1udt6aI	-0.5366138064484657	Estradiol test result value. Value describing the results for the Estradiol test.
+8kbyRtApZce	-0.5388025576647133	Sexual Compulsivity (SCS) - sex thought strong than self scale. I feel that sexual thoughts and feelings are stronger than I am. As part of Sexual Compulsivity Scale (SCS) questionnaire
+sSJsWhaiN	-0.5451862134224278	Are any of these a closer description of how you think of yourself?. 
+Qy2Jq071yg	-0.5490223912922254	Marital Status Description Type. a person's marital status.
+XyxZUd75Rq7	-0.5498534194464042	Kiddie Schedule for Affective Disorders Present and Lifetime (KSADS-PL) - sex child phenotype type. The phenotypic sex of the participant/subject, as part of the Kiddie Schedule for Affective Disorders Present and Lifetime version (KSADS-PL)
+XJGPPOFaaU	-0.5525793419013556	Salivary cortisol test date and time. The date and time of the subject's Salivary Cortisol Test.
+Q1gzudYa6L	-0.5544833841818886	DHEA-S test result unit of measure. The unit used to measure the results of the DHEA-S test.
+QyiWxOJu2J7g	-0.5559824367423666	In the past 30 days How often have you touched someone's genitals with your mouth (had oral sex)?. 
+7JZCw_YaTI	-0.5568540629839343	FSH test date and time. The date and time the subject's FSH test was performed.
+7ybx_ku2kXg	-0.5585407310579213	In the past 30 days How much have scars from surgery affected your satisfaction with your sex life?. 
+66pRU9Pg8YG	-0.5603668071465802	Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short) - sex behavior indicator. Indicates if there is an issue with too much sex behavior, as part of the Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short)
+XygWOuYpTU	-0.5655865737324095	Testosterone test result value. Value describing the results from the Testosterone, free test.
+QyVeu9s2ie	-0.5736536135802578	Over the past 4 weeks when you attempted sexual intercourse, how often was it satisfactory for you [PhenX]. 
+XJlvvuY66U	-0.5757861175082302	Salivary cortisol test result value. Value describing the results from the Salivary Cortisol Test.
+7yb7oYXLXL	-0.5764430350676905	I am satisfied with my sex life in the past 7 days [FACIT]. 
+An4npMH575J	-0.576715041388336	Sexual Compulsivity (SCS) - sex thought struggle scale. I have to struggle to control my sexual thoughts and behavior. As part of Sexual Compulsivity Scale (SCS) questionnaire
+XJ7ldkuhkQx	-0.576772779547537	In the past 30 days How much have hot flashes affected your satisfaction with your sex life?. 
+m1R_1_nJmx	-0.5777350434548566	In the past 30 days How much has recent weight gain affected your satisfaction with your sex life?. 
+mk_5tyO3y7l	-0.5799576025885778	During the past 7 days: I am satisfied with my sex life.. 
+C6SezX_mKG	-0.5799655323247748	Marital Status. A demographic parameter indicating a person's current conjugal status.
+Q1T_ku21Xl	-0.5823542023896182	In the past 30 days How much has recent weight loss affected your satisfaction with your sex life?. 
+m1uDFifsV	-0.5829162265838759	Marble Burying test - Marble Equidistant Spacing Indicator. Indicator if equidistant spacing of marbles was used , as part of Marble Burying test
+7kn_g_kuhkXx	-0.5833055439379093	In the past 30 days How often has someone touched your genitals with their mouth (had oral sex)?. 
+1x809rKoGJr	-0.5848109874795397	Pregnancy test specimen type. Type of specimen collected to perform the pregnancy test
+mkIxdcohoe	-0.5862156012633679	Over the past 4 weeks when you had sexual stimulation or intercourse, how often did you ejaculate [PhenX]. 
+7kIPKiGjN	-0.5863869649041076	Marble Burying test - Marble count. Number of marbles used , as part of Marble Burying test
+Q8ri7t3X	-0.5887763002983688	Thyroid-Stimulating hormone test date and time. The date and time the subject's Thyroid-Stimulating Hormone (TSH) test was performed.
+myDed9inox	-0.5898583192181726	Over the past 4 weeks when you had sexual stimulation or intercourse, how often did you have the feeling of orgasm or climax [PhenX]. 
+tOC_r10bJ	-0.5902938678044514	Thyroid-Stimulating hormone test result value. Value describing the results from the Thyroid-Stimulating Hormone (TSH) test.
+BFWCfsZbwYb	-0.5935626732317458	Sexual Compulsivity (SCS) - fail responsibility sex scale. I sometimes fail to meet my commitments and responsibilities because of my sexual behaviors. As part of Sexual Compulsivity Scale (SCS) questionnaire
+1yN_3FR9aAp	-0.59361728129552	Tanner stage. Stages of physical development in children, adolescents and adults. The scale defines physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair.
+Xyc_k_n1Xg	-0.5952362875056074	In the past 30 days How much has fatigue or lack of energy affected your satisfaction with your sex life?. 
+mJiuyO3yme	-0.5982642660802877	In the past 30 days How much has pain affected your satisfaction with your sex life?. 
+hyAdCSb5Tr2	-0.5985095699337248	Sexual Compulsivity (SCS) - sex desire disrupt daily life scale. My desires to have sex have disrupted my daily life. As part of Sexual Compulsivity Scale (SCS) questionnaire
+ESc0PTGL3	-0.6012701775359207	Hispanic, latino-a, or spanish origin. This term is used for reporting ethnicity based on, but not limited in use to, the Department of Health and Human Services, Affordable Care Act Section 4302.
+X1BPKoMoV	-0.603914037246539	Marble Burying test - Marble Diameter value. Value of marble diameter (in centimeters) , as part of Marble Burying test
+Q1zwtjzo4	-0.6041892008986732	Marble Burying test - Depth of bedding value. Value of depth of bedding (in centimeters) , as part of Marble Burying test
+m1Q0QP9CqX	-0.6050819107124155	Child Behavior Checklist (CBCL) - Plays with own sex parts in public scale. Scale for whether the child plays with their own sex parts in public, as part of the Child Behavior Checklist (CBCL)
+X1kPYifoN	-0.6052457210255061	Marble Burying test - Arena size length value. Value of length of test arena (in centimeters) , as part of Marble Burying test
+m1_wKiMs4	-0.6053368886475317	Marble Burying test - Arena size height value. Value of height of test arena (in centimeters) , as part of Marble Burying test
+Qya8FofjN	-0.6073313446644786	Marble Burying test - Arena size width value. Value of width of test arena (in centimeters) , as part of Marble Burying test
+mkowOt66U	-0.6084123506389115	Free T4 test result value. Value describing the results for the Free T4 test.
+XkWnDOtp6U	-0.6104689635644593	Free T3 test date and time. The date and time the subject's Free T3 test.
+CzpMSo6kTUX	-0.6118282806318641	Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short) - sex behavior difficulty indicator. Indicates if there is a difficulty controlling sex behavior, as part of the Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short)
+XyvvuYp68	-0.6120494834920478	24 Hour urine cortisol test date and time. The date and time of the subject's 24 Hour Urine Cortisol Test.
+QJZbOuY6a8	-0.612903583570365	Testosterone test result unit of measure. The unit used to measure the results from the Testosterone, free test.
+7JB9FydhkQx	-0.6147788242337334	In the past 30 days How satisfied have you been with your sexual relationship with a partner?. 
+mp6wt4DH	-0.6173793734780401	Estradiol test result unit of measure. The unit used to measure the results for the Estradiol test.
+8tcngjcC0k	-0.6189628964590943	Weight-for-length Per age and sex. 
+XKQA7ffY4r7	-0.6273422707333198	Sexual Compulsivity Scale (SCS) - difficulty partner sex desire scale. It has been difficult for me to find sex partners who desire having sex as much as I want to. As part of Sexual Compulsivity Scale (SCS) questionnaire
+mkpuOyO31Xx	-0.6311396839278859	In the past 30 days How much has vaginal dryness affected your satisfaction with your sex life?. 
+myZO_Yp6L	-0.6321753379362709	Progesterone test date and time. The date and time the subject's progesterone test was performed.
+QJbDwOY6aL	-0.6340061599477003	Salivary cortisol test result unit of measure. The unit of measurement used for the Salivary Cortisol Test.
+mJAwutpTU	-0.6347836509888662	FSH test result value. Value describing the results of the FSH test.
+vIPOQ_74e0	-0.6355030272476343	How many times in the last year have you contributed to the delinquency of a person under age 17 [Denver Youth Survey]. That is, you helped them to run away, gave them alcohol or drugs, or had sex with them.
+m1JA_da68	-0.6433640452813592	PROMIS - Positive expectancies people more desire for sex when drink scale. Scale related to an individual believing people have more of a desire for sex when they drink, as part of the PROMIS Positive Expectancies
+mk_ND_K6pI	-0.6445621891755373	AM Cortisol test result value. Value describing the results from the AM Cortisol Test.
+lhn8Y2O_Y	-0.6460985957740463	24 Hour urine cortisol test result value. Value describing the results from the 24 Hour Urine Cortisol Test.
+XkY_Kizo4	-0.6484914036411543	Marble Burying test - percent object buried count. Percent object buried (2/3 or marble below top of bedding) to object not buried , as part of Marble Burying test
+7JyxOk_nk7x	-0.6553360077772277	In the past 30 days How much has hair loss from medical treatments affected your satisfaction with your sex life?. 
+7Jer_uFTp8	-0.6562767691483442	ACTH test date and time. The date and time the subject's ACTH test was performed.
+PrfCYR_Pbz4	-0.6564980221833876	Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS) - sex problem frequency severity value. The value of the frequency multiplied by severity for the participant/subject having problems having sex as part of the Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS).
+7kSgk_cohix	-0.6575926228404574	Over the past 4 weeks how often were you able to get an erection during sexual activity [PhenX]. 
+obcuHFkAptO	-0.6618886541078164	Pregnancy test date and time. The date (and time if applicable and known) when the pregnancy test was performed
+QJ4__F6pU	-0.6671387362518852	Aldosterone test result value. Value describing the results form the Aldosterone test.
+bJzI_5rM2	-0.6679577766683074	Progesterone test result value. Value describing the results from the Progesterone test.
+XyFeit9s2jg	-0.6679663263215054	How many times in the last year have you physically hurt or threatened to hurt someone to get them to have sex with you [Denver Youth Survey]. 
+z7B8YG2B_aP	-0.6776283939860883	Parkinson's Disease Non Motor Symptoms (PD NMS) - feeling less more interested sex indicator. Indicator of participant/subject feeling less/more interested in sex, as part of the Parkinson's Disease Non Motor Symptoms (PD NMS) Questionnaire.
+X9MmQ1Oq	-0.6789156318473833	Animal stabilization surface material type. Type of material properties of the surface on which the animal lies
+7keVvOF6pL	-0.6795932273244258	Cortisol test type. The type of test performed in the Cortisol lab panel.
+QybtDuYapL	-0.6855619374673907	Fasting glucose test date and time. The date and time the subject's Fasting glucose test was performed.
+mRmB5o2j6oT	-0.6894144048432234	Parkinson's Disease Non Motor Symptoms (PD NMS) - difficulty sex try indicator. Indicator of participant/subject experiencing difficulty when having sex, as part of the Parkinson's Disease Non Motor Symptoms (PD NMS) Questionnaire.
+hbgYw7HPpXW	-0.6916252759890844	Health Conditions - Disease Disorders. A state of being, such as a state of health.C25457  | Any abnormal condition of the body or mind that causes discomfort, dysfunction, or distress to the person affected or those in contact with the person. The term is often used broadly to include injuries, disabilities, syndromes, symptoms, deviant behaviors, and atypical variations of structure and function.C2991
+71xLwOF6pI	-0.69368554952889	PM Cortisol test date and time. The date and time of the subject's PM Cortisol Test.
+ZjEGONLG9	-0.6955135092197953	Thyroid-Stimulating hormone test result unit of measure. The unit used to measure the results for the Thyroid-Stimulating Hormone (TSH) test.
+Q1liD_F6TL	-0.6962208242611239	Free T4 test result unit of measure. The unit used to measure the results of the Free T4 test.
+Qyv_utTTI	-0.6977463145806845	Prolactin test date and time. The date and time the subject's Prolactin test was performed.
+VNoSMDHGJUg	-0.6977900810257807	Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS) - alter sex interest severity score. The severity of the participant/subject having altered interest in sex. Very much increased or decreased as part of the Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS).
+G2gaajQ5l	-0.6986475407208413	Other test type. The type of test performed in the Other lab panel.
+7ybH_OKp6L	-0.6991139742897456	Fluid deprivation test with DDAVP result value. Value describing the results from the Fluid deprivation test with DDAVP.
+QJgAwdFTTU	-0.700923828342101	FSH test result unit of measure. The unit used to measure the results for the FSH test.
+Xkl2tSqZrI	-0.7014160438786937	Reason for no birth control use Reported --at exit. The reported reason at the end of the patient's visit for not using a contraceptive method(s).
+7JXGK79sHR	-0.7043079358820052	Laboratory procedure glycosylated hemoglobin value. Subject/Particpants amount of Glycosylated Hemoglobin (Hemoglobin A1c) in the blood.
+7ygxuJd2yXg	-0.705256616141784	In the past 30 days How much has a medical device (for example, port, colostomy bag, or oxygen tank) affected your satisfaction with your sex life?. 
+X1GstrcWBL	-0.7061575918023162	Reason for no birth control use Reported --at intake. At intake of patient encounter, the reason the patient reported no contraceptive method used.
+m7KIqTDiE	-0.709656878631999	24 Hour urine cortisol test result unit of measure. The unit of measurement used for the 24 Hour Urine Cortisol Test.
+mJ4w_YT6I	-0.7105213155038014	Neuroendocrine lab panel type. The type of specific neuroendocrine lab panel that was performed.
+QJrD_FTaL	-0.7116562281849013	AM Cortisol test result unit of measure. The unit of measurement used for the AM Cortisol Test.
+Qkxe_ccohjx	-0.7159794253670361	FEV1. 
+QyW5P_KaaL	-0.7182772483455316	Oral glucose tolerance test date and time. The date and time the subject's Oral glucose tolerance test was performed.
+mkeEudKaT8	-0.7183283493133165	Aldosterone test result unit of measure. The unit used to measure the results of the Aldosterone test.
+PddVekN3a	-0.720288161412702	Fluid deprivation test with DDAVP date and time. The date and time the subject's Fluid deprivation test with DDAVP was performed.
+mkZ56bd66U	-0.7222669995581202	PROMIS - Positive consequences more desire for sex when drink scale. Scale related to if the individual had more desire for sex when he/she drank, as part of the PROMIS Positive Consequences
+8JYlBhuVB	-0.7237025541360502	Oral glucose tolerance test result value. Value describing the results of the Oral glucose tolerance test.
+mknfKQqiS0	-0.727289949168651	Laboratory procedure fasting glucose value. Subject/Participant's amount of fasting glucose in the blood.
+Q175_ifo4	-0.7279881571271924	Conditioned Place Preference Test - neurological status of the animal type. Type of neurological status of the animal, as part of Conditioned Place Preference Test
+7k_X_uK6TI	-0.7304121111428168	Plasma renin activity test date and time. The date and time the subject's Plasma renin activity test was performed.
+xLzHpnlHQ	-0.7408320835841449	Fluid deprivation test with DDAVP result unit of measure. The unit used to measure the results of the Fluid deprivation test with DDAVP.
+QJGe__YTTL	-0.7494591458901553	Progesterone test result unit of measure. The unit used to measure the results from the Progesterone test.
+XkdwOtppI	-0.7527135808531662	Diabetes test type. The type of test performed in the Diabetes lab panel.
+00eYcDABU	-0.7552098833740708	PhenX - family conflict - intimate-relationship protocol 210401. The Revised Conflict Tactics Scales (CTS 2) is a 78-item, self-administered questionnaire that assesses both positive and negative behaviors used in response to conflict between romantic partners in the past year. The Revised Conflict Tactics Scales (CTS 2) is a proprietary instrument, and administration requires a licensing agreement from Western Psychological Services. Romantic partners are defined as any two adult individuals engaged in an intimate relationship, including both married and unmarried partners and both same-sex and opposite-sex partners.
+XyZLO_FT6L	-0.7563027094748103	Prolactin test result value. Value describing the results from the Prolactin test.
+wrmnVoxru2_	-0.7582925864527713	Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - impulse control disorder type. Types of impulse control disorders, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)
+7JeKDOY6pI	-0.7592165898343439	Fasting glucose test result unit of measure. The unit used to measure the results of the Fasting glucose test.
+QDj8s_vEh	-0.7596130707849027	Plasma renin activity test result value. Value describing the results from the Plasma renin activity test.
+mJEKBtpuQDH	-0.7599355456929456	Health Conditions - Medication or Other Treatments. A drug product that contains one or more active and/or inactive ingredients; it is intended to treat, prevent or alleviate the symptoms of disease. This term does not refer to the individual ingredients that make up the product.
+m1M9POFpTU	-0.7628749398752391	Thyroid test type. The type of test performed in the Thyroid lab panel.
+FHhdxNraDBJ	-0.7685141827644726	Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - impulse control disorder indicator. Indicator of whether the participant believes that he or she has an impulsive control disorder to engage in gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)
+EVn1J34w7yd	-0.7692321087011761	Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - guilty trouble mind indicator. Indicator of whether the participant believes that he or she has trouble keeping gambling, sex, buying, or eating out of the mind or feels guilty about the thoughts, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)
+71PxW95i2sx	-0.7730427977755056	FEV1 Predicted. 
+0md12WGtZXE	-0.7793498807204717	Disabilities. Groups with similar restrictions or lack or ability to perform physical or mental activities in a manner or within the range considered normal for a human being.
+7JKgOU5shie	-0.7803668241301431	FEV1 --pre bronchodilation. 
+kN1NAtJaWxa	-0.781453248237314	Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - activity continue behavior indicator. Indicator of whether the participant engages in activities (hiding what you are doing, lying, hoarding, borrowing, accumulating debt, stealing, or other illegal acts) to continue gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)
+XkMKL5o3ig	-0.7907783913528159	FEV1 measured/predicted. 
+XkxOuoMsE	-0.7942432648200979	Conditioned Place Preference Test equipment compartment Illumination level value. Level of illumination in the compartment of the Conditioned Place Preference equipment in lumes
+mkFl_c5s3jl	-0.8032227943343871	FEV1/FVC Predicted. 
+8DkrgmSRs	-0.8122074229417994	Oral glucose tolerance test result unit of measure. The unit used to measure the results of the Oral glucose tolerance test.
+7JqlW99i2og	-0.814218577465196	FEV1/FEV6 Predicted. 
+WMrjFrCt_Cp	-0.8247618990357097	Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - difficult control indicator. Indicator of whether the participant has difficulty controlling his or her impulsive behaviors toward gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)
+XypeOIcjnie	-0.8304553133615707	FEV1 --post bronchodilation. 
+myGU_ut6a8	-0.8333536084010097	Prolactin test result unit of measure. The unit used to measure the results of the Prolactin test.
+FYP9jRehB8	-0.8358131028815099	Creatinine Clearance Result (mL/min). A measurement of kidney function typically estimated from the blood creatinine level in addition to other factors such as race, age, gender and weight, expressed as milliliters per minute. Normal values vary depending on age, sex, and body weight but it is typically > 80 milliliters per minute (mL/min).
+71xmudF6pL	-0.8489519068120467	Plasma renin activity result unit of measure. The unit used to measure the results from the Plasma renin activity test.

@@ -1,0 +1,282 @@
+Input query CDE: Sex. A textual description of a person's sex at birth.
+MedCPT re-ranker (i.e.,CrossEncoder-sorted) top CDEs:
+rGEh0ckdmr	tensor(15.9300)	['Sex at Birth'
+ "The physical sexual characteristics of the neonate at birth. A textual description of a person's sex at birth."]
+ezelurehr2	tensor(15.9144)	['Sex' "A textual description of a person's sex at birth."]
+SdrSNxxC9_	tensor(15.7849)	['Birth sex assigned type other text'
+ "The free-text field related to 'Birth sex assigned type', specifying other text."]
+mJbVrC_a68	tensor(15.7717)	['Sex at birth other text'
+ "Text describing another variety of the subject's self-proclaimed sex at his/her birth."]
+AkxFsMsug	tensor(15.2804)	['Sex type code other text'
+ "The free-text field relating to 'Sex Type Code' specifying other text"]
+mygNSAd6TL	tensor(14.9621)	['Sex at Birth Type'
+ 'Self-reported sex of the participant/subject at birth.']
+6zw3RJZINg	tensor(14.9572)	['Sex at Birth'
+ 'The self-reported sex of the participant/subject at birth.']
+jR_eSd2YxSS	tensor(14.7415)	['Sex participant or subject genotype other text'
+ "The free-text field related to 'Sex participant or subject genotype type' specifying other text. The difference between male and female, based upon the interactions between genes and between the genotype and the environment. Genotype is identified based on the individual's reproductive organs and functions assigned by chromosomal complement."]
+DmdfRvS3o	tensor(14.2649)	['Birth sex assigned type'
+ 'Self-reported phenotypic sex of participant/subject, assigned at birth.']
+7ur8LWKKU	tensor(13.3163)	['Gender identity type'
+ 'Gender identity self-identified by the subject/participant. Gender type may or may not match sex assigned at birth.']
+u1Cw5U4VUQ	tensor(12.3808)	['What was your sex assigned at birth?' '']
+2dyYtsn9	tensor(11.0344)	['Sex type code' "Code for the subject/participant's sex"]
+gtqOBUXBf	tensor(10.3240)	['Sex type' 'The sex of the subject/participant']
+71MomQmJyx	tensor(10.1011)	['Gender Code' 'The code representing the gender of a person.']
+Q1lYGnUrkv	tensor(9.4051)	['Sex'
+ 'Self-identified gender where gender is the assemblage of properties that distinguish people on the basis of the societal roles']
+lcxHxrPww	tensor(8.9834)	['Sex of animal participant/subject as reported by medical intervention or genotype type other text'
+ "The free-text field related to 'Sex of animal participant/subject as reported by medical intervention or genotype type' specifying other text"]
+_Mw7TFu9fBP	tensor(8.1840)	['Phenotypic sex child type'
+ "Sex of the participant/subject's child based on physical examination"]
+NKwM4gsfXS	tensor(8.0220)	['Gender'
+ 'Characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)']
+Qy2Jq071yg	tensor(7.7449)	['Marital Status Description Type' "a person's marital status."]
+vqxNsvfcdhs	tensor(6.3406)	['Family history gender type'
+ 'Reported gender of the relative. Gender is the socially constructed identity of sex']
+m17cWrcAq7	tensor(6.2650)	['Parent gender type'
+ "Self-reported gender of the participant's/subject's parent. Gender is the socially constructed identity of sex. Gender is equated with phenotypic sex. Gender may differ from the sex of a parent determined genetically."]
+LZiKSObKa	tensor(6.2499)	['Sex [USSG-FHT]'
+ "Sex of the patient, created for the U.S. Surgeon General's Family Health History Portrait."]
+N7bHP0vG1G	tensor(6.0953)	['Gender - Select Other'
+ 'Additional Options for characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)']
+hNx1XUcZR5	tensor(5.5195)	['Gender - Specify'
+ 'Other - My gender identification is not a listed option for characteristics of people that are socially constructed, including norms, behaviors, and roles based on sex. As a social construct, gender varies from society to society and can change over time. (Adapted from WHO.)']
+71qxF89inig	tensor(5.4859)	['Sex' '']
+SytMgohDaJz	tensor(5.4263)	['Sibling gender type'
+ 'Reported gender of the sibling. Gender is the socially constructed identity of sex']
+L4LirGyWRB	tensor(5.2406)	['Sexual Orientation'
+ "The pattern of a person's emotional, romantic, and/or sexual attractions."]
+Rx2D0Tt5Uwd	tensor(5.1992)	['Sex genotype type'
+ "The difference between male and female, based upon the interactions between genes and between the genotype and the environment. Genotype is identified based on the individual's reproductive organs and functions assigned by chromosomal complement."]
+cJinh_sk6f	tensor(5.0996)	['Sexual Orientation - Select Other'
+ "The pattern of a person's emotional, romantic, and/or sexual attractions, not described in initial value selection list"]
+ycXI6Qb_jf	tensor(5.0009)	['Biological sex-other, specify' '']
+4Au0gE1VpU	tensor(4.7197)	['Biological sex' '']
+dvEQ3Mi5w2	tensor(4.5591)	['Sexual Orientation - Specify'
+ "The pattern of a person's emotional, romantic, and/or sexual attractions, not described in initial value selection list or secondary value selection list"]
+E4t_5fkSQ	tensor(4.1827)	['Sex of Family member'
+ 'Sex of a family member, including sibling, parent, child, or other family member. To specify the family member relation, use Relationship to patient [LOINC: 54136-7].']
+BFTXK85Q2tK	tensor(4.1272)	['Sex of Participant' 'Used by the registry to generate the GUID']
+7kesFS5ZS8	tensor(4.1017)	['Sex in the last year - Reported'
+ "A patient's self-report of sexual activity in the last 12 months."]
+J8ci_CzOgQ	tensor(4.0805)	['Societal sex'
+ 'This term was created for the U.S. Department of Health and Human Services (HHS) 2015 Edition Health Information Technology (Health IT) Certification Criteria final rule. [https://www.federalregister.gov/articles/2015/10/16/2015-25597/2015-edition-health-information-technology-health-it-certification-criteria-2015-edition-base]']
+7yxxYyUcRcQ	tensor(3.9511)	['Family History Research Diagnostic Criteria (FH-RDC) - Gender type code'
+ 'Code denoting the sex of the selected relative of the participant/subject, as part of the Family History - Research Diagnostic Criteria (FH-RDC)']
+71ExiROCjHf	tensor(3.8404)	['"Sex [AHRQ]'
+ 'The patient\'s documented sex (gender) on arrival at the hospital. This term was created for the ""Patient gender"" data element on the Agency for Healthcare Research and Quality (AHRQ) Healthcare Event Reporting Form (HERF), version 1.2. [https://ushik.ahrq.gov/ViewItemDetails?&system=mdr&itemKey=169064000&enableAsynchronousLoading=true]"']
+c15vK97pK5X	tensor(3.8334)	['Gender type' 'Self-reported gender of the participant/subject.']
+sSJsWhaiN	tensor(3.7847)	['Are any of these a closer description of how you think of yourself?' '']
+m1mZIvXgr0z	tensor(3.7452)	['Sex decreased interest indicator'
+ 'Indicator of whether the patient/participant has experienced decreased interest in sex.']
+XJiKrc_BI	tensor(3.6706)	['Sex in the last 3 months - Reported'
+ "A patient's self-report of sexual activity in the last three months."]
+XkGctrqWr8	tensor(3.5050)	['Ever had sex - Reported'
+ "A patient's self-report of ever being sexually active."]
+71lZioGo4	tensor(3.3536)	['Animal sex type'
+ 'Type of animal species sex as determined by observation']
+QJlQiFXUXU	tensor(3.2980)	['Would you like to answer the question referring to your sex life [FACIT]'
+ '']
+mkvbKsfiE	tensor(3.2838)	['Animal species sex type'
+ 'Type of animal species sex as determined by observation']
+m1mxtyU5R9Q	tensor(3.0688)	['Family History Research Diagnostic Criteria (FH-RDC) - Shared child gender type'
+ 'The sex of a child the participant/subject shares with his or her mate, as part of the Family History - Research Diagnostic Criteria (FH-RDC)']
+w1cJPANW	tensor(2.6677)	['Sex of animal participant/subject as reported by medical intervention or genotype type'
+ 'Type of sex of animal participant/subject as reported by medical intervention or by genotype']
+XkE9Yyu2yXx	tensor(2.2030)	['In the past 30 days How often have you thought that your sex life is wonderful?'
+ '']
+XyxZUd75Rq7	tensor(1.6938)	['Kiddie Schedule for Affective Disorders Present and Lifetime (KSADS-PL) - sex child phenotype type'
+ 'The phenotypic sex of the participant/subject, as part of the Kiddie Schedule for Affective Disorders Present and Lifetime version (KSADS-PL)']
+06ArFWmaU7E	tensor(1.5164)	['World Health Organization Quality of Life (WHOQOL-BREF) - sex life scale'
+ 'Scale used to assess sex life satisfaction, as part of the World Health Organization Quality of Life (WHQOL-BREF) questionnaire']
+C6SezX_mKG	tensor(1.2188)	['Marital Status'
+ "A demographic parameter indicating a person's current conjugal status."]
+m18_28qonsg	tensor(0.9086)	['Sex of relative family member [PhenX]' '']
+Qyw98XerAz	tensor(0.5196)	['Subject ID' 'Subject identification ID']
+mkX5FkdnJQl	tensor(0.3535)	['In the past 30 days How much pleasure has your sex life given you?' '']
+ZtTACudtFcK	tensor(0.3389)	['Site name' 'The name of the site for the study']
+m19euqinsg	tensor(-0.3033)	['Over the past 4 weeks how satisfied have you been with your overall sex life [PhenX]'
+ '']
+7Jf5YJ_2kXg	tensor(-0.3966)	['In the past 30 days How satisfied have you been with your sex life?' '']
+mk_5tyO3y7l	tensor(-0.6611)	['During the past 7 days: I am satisfied with my sex life' '.']
+QyExJuconsx	tensor(-0.7152)	['How often did you have difficulty with lack of interest in sex [PhenX]'
+ '']
+mkIxdcohoe	tensor(-1.0661)	['Over the past 4 weeks when you had sexual stimulation or intercourse, how often did you ejaculate [PhenX]'
+ '']
+QkxMeOJ_nkme	tensor(-1.5340)	['In the past 30 days How often have you had anal sex?' '']
+QkZndydhymg	tensor(-1.7097)	['In the past 30 days How often have you felt like you wanted to have sex?'
+ '']
+QyVeu9s2ie	tensor(-1.7138)	['Over the past 4 weeks when you attempted sexual intercourse, how often was it satisfactory for you [PhenX]'
+ '']
+my9loFqo3jg	tensor(-1.7767)	['How many times in the last year have you had or tried to have sexual relations with someone against their will, other than events you just mentioned [Denver Youth Survey]'
+ '']
+m1JA_da68	tensor(-1.8536)	['PROMIS - Positive expectancies people more desire for sex when drink scale'
+ 'Scale related to an individual believing people have more of a desire for sex when they drink, as part of the PROMIS Positive Expectancies']
+QkPqt1dh1Qg	tensor(-1.9347)	['In the past 30 days When you have had sexual activity, how satisfying has it been?'
+ '']
+QkfrF1OnJQx	tensor(-2.1560)	['People have more desire for sex when they drink' '.']
+Xy8cY1_2k7x	tensor(-2.5836)	['In the past 30 days When you have had sexual activity, how much have you enjoyed it?'
+ '']
+7yb7oYXLXL	tensor(-2.7459)	['I am satisfied with my sex life in the past 7 days [FACIT]' '']
+m1Q0QP9CqX	tensor(-2.8183)	['Child Behavior Checklist (CBCL) - Plays with own sex parts in public scale'
+ 'Scale for whether the child plays with their own sex parts in public, as part of the Child Behavior Checklist (CBCL)']
+hyAdCSb5Tr2	tensor(-3.2196)	['Sexual Compulsivity (SCS) - sex desire disrupt daily life scale'
+ 'My desires to have sex have disrupted my daily life. As part of Sexual Compulsivity Scale (SCS) questionnaire']
+nSXRtkERXFM	tensor(-3.5663)	['Sexual Compulsivity (SCS) - sex thought more than want scale'
+ 'I think about sex more than I would like to. As part of Sexual Compulsivity Scale (SCS) questionnaire']
+mkZ56bd66U	tensor(-3.7626)	['PROMIS - Positive consequences more desire for sex when drink scale'
+ 'Scale related to if the individual had more desire for sex when he/she drank, as part of the PROMIS Positive Consequences']
+Zyxmbm4_C	tensor(-3.9827)	['How many times in the last year have you paid someone to have sex with you [Denver Youth Survey]'
+ '']
+a4ev6FPSc	tensor(-4.1182)	['How many times in the last year did you threaten or hurt someone to get them to have sex with you [Denver Youth Survey]'
+ '']
+710Ze_1unyQl	tensor(-4.1673)	['Does your sexual activity ever involve inserting a dildo or other sex toy into your vagina?'
+ '']
+7kSgk_cohix	tensor(-4.2931)	['Over the past 4 weeks how often were you able to get an erection during sexual activity [PhenX]'
+ '']
+Xkl2tSqZrI	tensor(-4.3011)	['Reason for no birth control use Reported --at exit'
+ "The reported reason at the end of the patient's visit for not using a contraceptive method(s)."]
+X1GstrcWBL	tensor(-4.5137)	['Reason for no birth control use Reported --at intake'
+ 'At intake of patient encounter, the reason the patient reported no contraceptive method used.']
+myDed9inox	tensor(-4.5372)	['Over the past 4 weeks when you had sexual stimulation or intercourse, how often did you have the feeling of orgasm or climax [PhenX]'
+ '']
+vuhEgrPv5b4	tensor(-4.8678)	['Sexual Compulsivity (SCS) - sex thought work scale'
+ 'I find myself thinking about sex while at work. As part of Sexual Compulsivity Scale (SCS) questionnaire']
+QyiWxOJu2J7g	tensor(-5.0905)	["In the past 30 days How often have you touched someone's genitals with your mouth (had oral sex)?"
+ '']
+7Jdgotqs2sx	tensor(-5.1891)	['How many times in the last year have you been paid for having sexual relations with someone [Denver Youth Survey]'
+ '']
+7kn_g_kuhkXx	tensor(-5.2791)	['In the past 30 days How often has someone touched your genitals with their mouth (had oral sex)?'
+ '']
+P7b7UXAW6I	tensor(-5.5267)	['How many times in the last year have you been paid, or received other favors for having sex with someone [Denver Youth Survey]'
+ '']
+vIPOQ_74e0	tensor(-6.0326)	['How many times in the last year have you contributed to the delinquency of a person under age 17 [Denver Youth Survey]'
+ 'That is, you helped them to run away, gave them alcohol or drugs, or had sex with them.']
+8tcngjcC0k	tensor(-6.1165)	['Weight-for-length Per age and sex' '']
+XyFeit9s2jg	tensor(-6.7323)	['How many times in the last year have you physically hurt or threatened to hurt someone to get them to have sex with you [Denver Youth Survey]'
+ '']
+7JB9FydhkQx	tensor(-6.7359)	['In the past 30 days How satisfied have you been with your sexual relationship with a partner?'
+ '']
+mJiuyO3yme	tensor(-7.8285)	['In the past 30 days How much has pain affected your satisfaction with your sex life?'
+ '']
+m1R_1_nJmx	tensor(-8.1112)	['In the past 30 days How much has recent weight gain affected your satisfaction with your sex life?'
+ '']
+7JyxOk_nk7x	tensor(-8.4912)	['In the past 30 days How much has hair loss from medical treatments affected your satisfaction with your sex life?'
+ '']
+7ybx_ku2kXg	tensor(-9.1329)	['In the past 30 days How much have scars from surgery affected your satisfaction with your sex life?'
+ '']
+Q1T_ku21Xl	tensor(-9.2810)	['In the past 30 days How much has recent weight loss affected your satisfaction with your sex life?'
+ '']
+Xyzluyu2k7e	tensor(-9.5166)	['In the past 30 days How much has breast tenderness/enlargement affected your satisfaction with your sex life?'
+ '']
+Xyc_k_n1Xg	tensor(-9.7037)	['In the past 30 days How much has fatigue or lack of energy affected your satisfaction with your sex life?'
+ '']
+7ygxuJd2yXg	tensor(-10.2217)	['In the past 30 days How much has a medical device (for example, port, colostomy bag, or oxygen tank) affected your satisfaction with your sex life?'
+ '']
+mkpuOyO31Xx	tensor(-11.1219)	['In the past 30 days How much has vaginal dryness affected your satisfaction with your sex life?'
+ '']
+XJ7ldkuhkQx	tensor(-11.4177)	['In the past 30 days How much have hot flashes affected your satisfaction with your sex life?'
+ '']
+
+The rest of the CDEs, ranked by MedCPT retriever only:
+An4npMH575J	tensor(55.3442)	('Sexual Compulsivity (SCS) - sex thought struggle scale', 'I have to struggle to control my sexual thoughts and behavior. As part of Sexual Compulsivity Scale (SCS) questionnaire')
+BFWCfsZbwYb	tensor(55.2718)	('Sexual Compulsivity (SCS) - fail responsibility sex scale', 'I sometimes fail to meet my commitments and responsibilities because of my sexual behaviors. As part of Sexual Compulsivity Scale (SCS) questionnaire')
+00eYcDABU	tensor(54.7856)	('PhenX - family conflict - intimate-relationship protocol 210401', 'The Revised Conflict Tactics Scales (CTS 2) is a 78-item, self-administered questionnaire that assesses both positive and negative behaviors used in response to conflict between romantic partners in the past year. The Revised Conflict Tactics Scales (CTS 2) is a proprietary instrument, and administration requires a licensing agreement from Western Psychological Services. Romantic partners are defined as any two adult individuals engaged in an intimate relationship, including both married and unmarried partners and both same-sex and opposite-sex partners.')
+66pRU9Pg8YG	tensor(54.5884)	("Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short) - sex behavior indicator", "Indicates if there is an issue with too much sex behavior, as part of the Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short)")
+hfA60EMB7mf	tensor(54.5842)	('Headache Screening Survey (HSS) - household member sex type', "The sex of each members of a participant's household who suffer from severe headaches from Headache Screening Survey (HSS) which is a questionnaire that screens for alcohol dependency without it appearing to be the main focus of the instrument.")
+CzpMSo6kTUX	tensor(54.5150)	("Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short) - sex behavior difficulty indicator", "Indicates if there is a difficulty controlling sex behavior, as part of the Questionnaire for Impulsive Disorders in Parkinson's Disease (QUIP-Current-Short)")
+8kbyRtApZce	tensor(54.4465)	('Sexual Compulsivity (SCS) - sex thought strong than self scale', 'I feel that sexual thoughts and feelings are stronger than I am. As part of Sexual Compulsivity Scale (SCS) questionnaire')
+mk_pDdYapU	tensor(54.4414)	('Sex hormones test type', 'The type of test performed in the Sex hormones lab panel.')
+XkudlGEcjHR	tensor(54.0887)	('Tanner stage genitalia scale', 'The scale defining physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair to characterize stages of physical development in children, adolescents and adults.')
+wFcQvdMAeUB	tensor(54.0690)	('Stroke Specific Quality of Life Scale (SS-QOL) - sex social role scale', 'The scale for having sex less often based on Stroke Specific Quality of Life Scale (SS-QOL).')
+mRmB5o2j6oT	tensor(53.8624)	("Parkinson's Disease Non Motor Symptoms (PD NMS) - difficulty sex try indicator", "Indicator of participant/subject experiencing difficulty when having sex, as part of the Parkinson's Disease Non Motor Symptoms (PD NMS) Questionnaire.")
+XKQA7ffY4r7	tensor(53.6768)	('Sexual Compulsivity Scale (SCS) - difficulty partner sex desire scale', 'It has been difficult for me to find sex partners who desire having sex as much as I want to. As part of Sexual Compulsivity Scale (SCS) questionnaire')
+obcuHFkAptO	tensor(53.6751)	('Pregnancy test date and time', 'The date (and time if applicable and known) when the pregnancy test was performed')
+ESc0PTGL3	tensor(53.5665)	('Hispanic, latino-a, or spanish origin', 'This term is used for reporting ethnicity based on, but not limited in use to, the Department of Health and Human Services, Affordable Care Act Section 4302.')
+z7B8YG2B_aP	tensor(53.3736)	("Parkinson's Disease Non Motor Symptoms (PD NMS) - feeling less more interested sex indicator", "Indicator of participant/subject feeling less/more interested in sex, as part of the Parkinson's Disease Non Motor Symptoms (PD NMS) Questionnaire.")
+VNoSMDHGJUg	tensor(53.1608)	("Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS) - alter sex interest severity score", "The severity of the participant/subject having altered interest in sex. Very much increased or decreased as part of the Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS).")
+1yN_3FR9aAp	tensor(52.9056)	('Tanner stage', 'Stages of physical development in children, adolescents and adults. The scale defines physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair.')
+7kFdxfE9iBA	tensor(52.8291)	('Tanner stage pubic hair scale', 'The scale defining physical measurements of development based on external primary and secondary sex characteristics, such as the size of the breasts, genitalia, and development of pubic hair to characterize stages of physical development in children, adolescents and adults.')
+PrfCYR_Pbz4	tensor(52.4809)	("Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS) - sex problem frequency severity value", "The value of the frequency multiplied by severity for the participant/subject having problems having sex as part of the Non-Motor Symptom assessment scale for Parkinson's Disease (NMSS).")
+_p9dHzoLsx	tensor(52.4452)	('Laboratory procedure gonadal function sex hormone binding globulin serum value', 'The value related to concentration of sex hormone binding globulin in the serum')
+1x809rKoGJr	tensor(52.1180)	('Pregnancy test specimen type', 'Type of specimen collected to perform the pregnancy test')
+mBKN_DbgI	tensor(51.7496)	('Estradiol test date and time', "The date and time the subject's Estradiol test was performed.")
+myZO_Yp6L	tensor(51.3157)	('Progesterone test date and time', "The date and time the subject's progesterone test was performed.")
+hbgYw7HPpXW	tensor(51.2835)	('Health Conditions - Disease Disorders', 'A state of being, such as a state of health.C25457  | Any abnormal condition of the body or mind that causes discomfort, dysfunction, or distress to the person affected or those in contact with the person. The term is often used broadly to include injuries, disabilities, syndromes, symptoms, deviant behaviors, and atypical variations of structure and function.C2991')
+QJGe__YTTL	tensor(51.2532)	('Progesterone test result unit of measure', 'The unit used to measure the results from the Progesterone test.')
+7JqlW99i2og	tensor(50.8857)	('FEV1/FEV6 Predicted', '')
+XkMKL5o3ig	tensor(50.8641)	('FEV1 measured/predicted', '')
+0md12WGtZXE	tensor(50.8158)	('Disabilities', 'Groups with similar restrictions or lack or ability to perform physical or mental activities in a manner or within the range considered normal for a human being.')
+mp6wt4DH	tensor(50.5505)	('Estradiol test result unit of measure', 'The unit used to measure the results for the Estradiol test.')
+bJzI_5rM2	tensor(50.2834)	('Progesterone test result value', 'Value describing the results from the Progesterone test.')
+Qyv_utTTI	tensor(50.2391)	('Prolactin test date and time', "The date and time the subject's Prolactin test was performed.")
+QyZ1udt6aI	tensor(50.1073)	('Estradiol test result value', 'Value describing the results for the Estradiol test.')
+Qkxe_ccohjx	tensor(50.0380)	('FEV1', '')
+X1BPKoMoV	tensor(49.9990)	('Marble Burying test - Marble Diameter value', 'Value of marble diameter (in centimeters) , as part of Marble Burying test')
+7J_fddY6aL	tensor(49.9606)	('DHEA-S test date and time', "The date and time the subject's DHEA-S test was performed.")
+EVn1J34w7yd	tensor(49.9255)	("Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - guilty trouble mind indicator", "Indicator of whether the participant believes that he or she has trouble keeping gambling, sex, buying, or eating out of the mind or feels guilty about the thoughts, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)")
+XkWnDOtp6U	tensor(49.8761)	('Free T3 test date and time', "The date and time the subject's Free T3 test.")
+7kIPKiGjN	tensor(49.8580)	('Marble Burying test - Marble count', 'Number of marbles used , as part of Marble Burying test')
+mJ4w_YT6I	tensor(49.8069)	('Neuroendocrine lab panel type', 'The type of specific neuroendocrine lab panel that was performed.')
+FYP9jRehB8	tensor(49.7782)	('Creatinine Clearance Result (mL/min)', 'A measurement of kidney function typically estimated from the blood creatinine level in addition to other factors such as race, age, gender and weight, expressed as milliliters per minute. Normal values vary depending on age, sex, and body weight but it is typically > 80 milliliters per minute (mL/min).')
+XkY_Kizo4	tensor(49.7355)	('Marble Burying test - percent object buried count', 'Percent object buried (2/3 or marble below top of bedding) to object not buried , as part of Marble Burying test')
+71PxW95i2sx	tensor(49.7352)	('FEV1 Predicted', '')
+QJZbOuY6a8	tensor(49.6927)	('Testosterone test result unit of measure', 'The unit used to measure the results from the Testosterone, free test.')
+mkFl_c5s3jl	tensor(49.5556)	('FEV1/FVC Predicted', '')
+7Jer_uFTp8	tensor(49.4718)	('ACTH test date and time', "The date and time the subject's ACTH test was performed.")
+XygWOuYpTU	tensor(49.3832)	('Testosterone test result value', 'Value describing the results from the Testosterone, free test.')
+m1uDFifsV	tensor(49.3212)	('Marble Burying test - Marble Equidistant Spacing Indicator', 'Indicator if equidistant spacing of marbles was used , as part of Marble Burying test')
+7JZCw_YaTI	tensor(49.2388)	('FSH test date and time', "The date and time the subject's FSH test was performed.")
+71xLwOF6pI	tensor(49.1519)	('PM Cortisol test date and time', "The date and time of the subject's PM Cortisol Test.")
+G2gaajQ5l	tensor(49.1341)	('Other test type', 'The type of test performed in the Other lab panel.')
+Q1gzudYa6L	tensor(49.0628)	('DHEA-S test result unit of measure', 'The unit used to measure the results of the DHEA-S test.')
+XJGPPOFaaU	tensor(48.8626)	('Salivary cortisol test date and time', "The date and time of the subject's Salivary Cortisol Test.")
+lhn8Y2O_Y	tensor(48.8322)	('24 Hour urine cortisol test result value', 'Value describing the results from the 24 Hour Urine Cortisol Test.')
+7k_X_uK6TI	tensor(48.7603)	('Plasma renin activity test date and time', "The date and time the subject's Plasma renin activity test was performed.")
+PddVekN3a	tensor(48.6660)	('Fluid deprivation test with DDAVP date and time', "The date and time the subject's Fluid deprivation test with DDAVP was performed.")
+mk_ND_K6pI	tensor(48.5176)	('AM Cortisol test result value', 'Value describing the results from the AM Cortisol Test.')
+WMrjFrCt_Cp	tensor(48.4712)	("Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - difficult control indicator", "Indicator of whether the participant has difficulty controlling his or her impulsive behaviors toward gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)")
+XyvvuYp68	tensor(48.4245)	('24 Hour urine cortisol test date and time', "The date and time of the subject's 24 Hour Urine Cortisol Test.")
+myGU_ut6a8	tensor(48.3870)	('Prolactin test result unit of measure', 'The unit used to measure the results of the Prolactin test.')
+7keVvOF6pL	tensor(48.3033)	('Cortisol test type', 'The type of test performed in the Cortisol lab panel.')
+QJgAwdFTTU	tensor(47.9847)	('FSH test result unit of measure', 'The unit used to measure the results for the FSH test.')
+XyZLO_FT6L	tensor(47.9729)	('Prolactin test result value', 'Value describing the results from the Prolactin test.')
+FHhdxNraDBJ	tensor(47.9702)	("Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - impulse control disorder indicator", "Indicator of whether the participant believes that he or she has an impulsive control disorder to engage in gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)")
+mJAwutpTU	tensor(47.9381)	('FSH test result value', 'Value describing the results of the FSH test.')
+QJrD_FTaL	tensor(47.9208)	('AM Cortisol test result unit of measure', 'The unit of measurement used for the AM Cortisol Test.')
+Q8ri7t3X	tensor(47.9065)	('Thyroid-Stimulating hormone test date and time', "The date and time the subject's Thyroid-Stimulating Hormone (TSH) test was performed.")
+QyW5P_KaaL	tensor(47.8963)	('Oral glucose tolerance test date and time', "The date and time the subject's Oral glucose tolerance test was performed.")
+mJEKBtpuQDH	tensor(47.8349)	('Health Conditions - Medication or Other Treatments', 'A drug product that contains one or more active and/or inactive ingredients; it is intended to treat, prevent or alleviate the symptoms of disease. This term does not refer to the individual ingredients that make up the product.')
+m7KIqTDiE	tensor(47.6984)	('24 Hour urine cortisol test result unit of measure', 'The unit of measurement used for the 24 Hour Urine Cortisol Test.')
+XkxOuoMsE	tensor(47.6947)	('Conditioned Place Preference Test equipment compartment Illumination level value', 'Level of illumination in the compartment of the Conditioned Place Preference equipment in lumes')
+kN1NAtJaWxa	tensor(47.6345)	("Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - activity continue behavior indicator", "Indicator of whether the participant engages in activities (hiding what you are doing, lying, hoarding, borrowing, accumulating debt, stealing, or other illegal acts) to continue gambling, sex, buying, or eating, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)")
+m1_wKiMs4	tensor(47.6202)	('Marble Burying test - Arena size height value', 'Value of height of test arena (in centimeters) , as part of Marble Burying test')
+Q1liD_F6TL	tensor(47.5563)	('Free T4 test result unit of measure', 'The unit used to measure the results of the Free T4 test.')
+7JXGK79sHR	tensor(47.5174)	('Laboratory procedure glycosylated hemoglobin value', 'Subject/Particpants amount of Glycosylated Hemoglobin (Hemoglobin A1c) in the blood.')
+7ybH_OKp6L	tensor(47.4995)	('Fluid deprivation test with DDAVP result value', 'Value describing the results from the Fluid deprivation test with DDAVP.')
+XJlvvuY66U	tensor(47.3800)	('Salivary cortisol test result value', 'Value describing the results from the Salivary Cortisol Test.')
+Qya8FofjN	tensor(47.3687)	('Marble Burying test - Arena size width value', 'Value of width of test arena (in centimeters) , as part of Marble Burying test')
+71xmudF6pL	tensor(47.2774)	('Plasma renin activity result unit of measure', 'The unit used to measure the results from the Plasma renin activity test.')
+X1kPYifoN	tensor(47.2033)	('Marble Burying test - Arena size length value', 'Value of length of test arena (in centimeters) , as part of Marble Burying test')
+mkeEudKaT8	tensor(47.1966)	('Aldosterone test result unit of measure', 'The unit used to measure the results of the Aldosterone test.')
+mkowOt66U	tensor(47.0664)	('Free T4 test result value', 'Value describing the results for the Free T4 test.')
+XypeOIcjnie	tensor(46.9218)	('FEV1 --post bronchodilation', '')
+7JKgOU5shie	tensor(46.8143)	('FEV1 --pre bronchodilation', '')
+Q1zwtjzo4	tensor(46.8040)	('Marble Burying test - Depth of bedding value', 'Value of depth of bedding (in centimeters) , as part of Marble Burying test')
+QJ4__F6pU	tensor(46.6403)	('Aldosterone test result value', 'Value describing the results form the Aldosterone test.')
+Q175_ifo4	tensor(46.5769)	('Conditioned Place Preference Test - neurological status of the animal type', 'Type of neurological status of the animal, as part of Conditioned Place Preference Test')
+xLzHpnlHQ	tensor(46.5394)	('Fluid deprivation test with DDAVP result unit of measure', 'The unit used to measure the results of the Fluid deprivation test with DDAVP.')
+QybtDuYapL	tensor(46.4558)	('Fasting glucose test date and time', "The date and time the subject's Fasting glucose test was performed.")
+QJbDwOY6aL	tensor(46.3203)	('Salivary cortisol test result unit of measure', 'The unit of measurement used for the Salivary Cortisol Test.')
+tOC_r10bJ	tensor(45.9778)	('Thyroid-Stimulating hormone test result value', 'Value describing the results from the Thyroid-Stimulating Hormone (TSH) test.')
+mknfKQqiS0	tensor(45.8027)	('Laboratory procedure fasting glucose value', "Subject/Participant's amount of fasting glucose in the blood.")
+QDj8s_vEh	tensor(45.6423)	('Plasma renin activity test result value', 'Value describing the results from the Plasma renin activity test.')
+8DkrgmSRs	tensor(45.4929)	('Oral glucose tolerance test result unit of measure', 'The unit used to measure the results of the Oral glucose tolerance test.')
+ZjEGONLG9	tensor(45.3547)	('Thyroid-Stimulating hormone test result unit of measure', 'The unit used to measure the results for the Thyroid-Stimulating Hormone (TSH) test.')
+m1M9POFpTU	tensor(45.3429)	('Thyroid test type', 'The type of test performed in the Thyroid lab panel.')
+X9MmQ1Oq	tensor(45.2740)	('Animal stabilization surface material type', 'Type of material properties of the surface on which the animal lies')
+XkdwOtppI	tensor(44.8816)	('Diabetes test type', 'The type of test performed in the Diabetes lab panel.')
+8JYlBhuVB	tensor(44.8469)	('Oral glucose tolerance test result value', 'Value describing the results of the Oral glucose tolerance test.')
+7JeKDOY6pI	tensor(44.7837)	('Fasting glucose test result unit of measure', 'The unit used to measure the results of the Fasting glucose test.')
+wrmnVoxru2_	tensor(44.3927)	("Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP) - impulse control disorder type", "Types of impulse control disorders, as part of the Questionnaire for Impulsive-Compulsive Disorders in Parkinson's Disease (QUIP)")
