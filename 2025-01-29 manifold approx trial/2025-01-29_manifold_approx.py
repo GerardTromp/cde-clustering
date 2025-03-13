@@ -15,11 +15,19 @@ import matplotlib.pyplot as plt
 import mplcursors
 import sys
 import datetime
+import collections
+
+"""
+Inputs:
+    - input_json_filepath: json file mapping identifiers to their embeddings vectors
+    - cluster_labels_filepath: "None" or filepath to tsv with 2 columns: identifier, cluster_name
+    - output_path: path to a directory where images will be outputted
+
+"""
+
 
 if len(sys.argv) != 4:
-    input_json_filepath = r"C:\Users\rotenbergnh\OneDrive - National Institutes of Health\cell type NLP extraction\2025-01-23 encoding CDEs (Matt)\2025-01-29 clustering trial\2025-01-29_SAPBERT_trial_embeddings.json"
-    cluster_labels_filepath = r"C:\Users\rotenbergnh\OneDrive - National Institutes of Health\cell type NLP extraction\2025-01-23 encoding CDEs (Matt)\sample_cde_clusters_manual.tsv"
-    raise Exception("choose outputpath")
+    raise Exception("expected len(sys.argv)==4")
 else:
     input_json_filepath, cluster_labels_filepath, output_path = sys.argv[1:]
 
@@ -30,11 +38,12 @@ else:
 DISTANCE_METRIC = "cosine"
 
 
-cluster_labels_dict = {}
-with open(cluster_labels_filepath, 'r') as readfp:
-    for line in readfp:
-        ID_i, cluster_name_i = line.strip().split('\t')
-        cluster_labels_dict[ID_i] = cluster_name_i
+cluster_labels_dict = collections.defaultdict(lambda: "None") # defaults to None if key not in dict
+if cluster_labels_filepath != "None":
+    with open(cluster_labels_filepath, 'r') as readfp:
+        for line in readfp:
+            ID_i, cluster_name_i = line.strip().split('\t')
+            cluster_labels_dict[ID_i] = cluster_name_i
 
 ### ********** should data be normalized???
 
@@ -159,13 +168,14 @@ def plot_manifold(model, title, train_data, val_data, train_data_labels, kwargs 
 
 
     # graph 2
-    plt.figure()
-    for cluster_name in np.unique(train_data_labels):
-        plt.scatter(x[train_data_labels == cluster_name], y[train_data_labels == cluster_name], label=cluster_name) #, s=4)
-    plt.title(title + " by cluster names")
-    plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
-    # plt.show()
-    plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
+    if len(np.unique(train_data_labels)) > 1:
+        plt.figure()
+        for cluster_name in np.unique(train_data_labels):
+            plt.scatter(x[train_data_labels == cluster_name], y[train_data_labels == cluster_name], label=cluster_name) #, s=4)
+        plt.title(title + " by cluster names")
+        plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
+        # plt.show()
+        plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 
   # # graph 3
   # X2 = df_manifold.dropna(subset = df_cols + ['90days-mRS'])[df_cols].to_numpy()

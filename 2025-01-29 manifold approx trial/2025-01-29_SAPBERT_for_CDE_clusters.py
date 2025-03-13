@@ -13,7 +13,11 @@ import scipy.stats
 import json
 
 
-# topn = 5
+"""
+Inputs:
+    - input_database_path: tsv with 2 columns: description, identifier; there is 1 header line skipped
+    - output_filename: output json file mapping identifier to the description embeddings
+"""
 
 def load_terms(filename):
     term_id_pairs = list()
@@ -216,7 +220,7 @@ def write_tsv_output(output_dirpath, normalized_mentions_dict):
 
 
 
-def main(input_database_path, output_filename, topn = "all", abbr_freq_filename = None, abbr_paths = None):
+def main(input_database_path, output_filename, abbr_freq_filename = None, abbr_paths = None):
     
     # Load abbreviations
     print("Loading abbreviations (if applicable)")
@@ -241,7 +245,7 @@ def main(input_database_path, output_filename, topn = "all", abbr_freq_filename 
     elif os.path.isdir(input_database_path):
         for path, dirnames, filenames in os.walk(input_database_path):
             for filename in filenames:
-                term_id_pairs += load_terms(input_database_path)
+                term_id_pairs += load_terms(os.path.join(path, filename))
     else:
         raise Exception("Could not load input path; it wasn't a file nor directory:", input_database_path)
                 
@@ -271,5 +275,5 @@ if __name__ == "__main__":
         print("not using cmd args")
         main(input_database_path="../sample_cde_batch_2025_02_20.tsv",
              output_filename="2025-03-12_SAPBERT_trial_embeddings-IDENTICAL_noam.json", 
-             topn = "all", abbr_freq_filename = None, abbr_paths = None)
+             abbr_freq_filename = None, abbr_paths = None)
 
