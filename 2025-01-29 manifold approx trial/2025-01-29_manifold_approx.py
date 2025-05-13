@@ -21,15 +21,19 @@ import collections
 Inputs:
     - input_json_filepath: json file mapping identifiers to their embeddings vectors
     - cluster_labels_filepath: "None" or filepath to tsv with 2 columns: identifier, cluster_name
-    - output_path: path to a directory where images will be outputted
+    - output_path: "None" if interactive, or path to a directory where images will be outputted
 
 """
 
-
-if len(sys.argv) != 4:
-    raise Exception("expected len(sys.argv)==4")
-else:
+if len(sys.argv) == 1:
+    # change these as desired
+    input_json_filepath = "processed_materials_embeddings.json"
+    cluster_labels_filepath = "None"
+    output_path = "tmp"
+elif len(sys.argv) == 4:
     input_json_filepath, cluster_labels_filepath, output_path = sys.argv[1:]
+else:
+    raise Exception("expected len(sys.argv)==4")
 
 # run_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
 # global fig_idx
@@ -85,6 +89,16 @@ def add_cursor_labels(names):
         "add", lambda sel: sel.annotation.set_text(names[sel.index]))
 
 
+# we could use the function below, so that when the code is run on the commandline,
+# you don't run add_cursor_labels, which saves time
+# def save_fig(dirpath):
+#     if dirpath is None or dirpath=="None":
+#         # add_cursor_labels
+#         plt.show()
+#     else:
+#         plt.savefig(os.path.join(dirpath, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
+
+
 # plot 1: scree plot
 def scree_plot(pca, title="Scree plot", figsize=None):
   percents_variance = pca.explained_variance_ratio_*100
@@ -96,7 +110,7 @@ def scree_plot(pca, title="Scree plot", figsize=None):
   plt.ylabel("Percentage of explained variance")
   plt.xlabel("Principal component")
   plt.title(title)
-  # plt.show()
+  plt.show()
   plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 scree_plot(pca, figsize=(10,5))
 
@@ -111,7 +125,7 @@ def cum_scree_plot(pca, figsize=None):
   plt.xlabel("Principal component")
   plt.ylabel("Cumulative fraction of explained variance")
   plt.title("Cumulative fraction of variance explained by principal components")
-  # plt.show()
+  plt.show()
   plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 cum_scree_plot(pca, (10,5))
 
@@ -124,7 +138,7 @@ def PCA_plots(pca_data, percents_variance, extra_title = "", plot_2D=True, plot_
     plt.xlabel(f"PC1 - {round(percents_variance[0])}%")
     plt.ylabel(f"PC2 - {round(percents_variance[1])}%")
     add_cursor_labels(train_names)
-    # plt.show()
+    plt.show()
     plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 
   # 3D:
@@ -137,7 +151,7 @@ def PCA_plots(pca_data, percents_variance, extra_title = "", plot_2D=True, plot_
     ax.set_zlabel(f"PC3 - {round(percents_variance[2])}%")
     plt.title("3D PCA graph" + extra_title)
     add_cursor_labels(train_names)
-    # plt.show()
+    plt.show()
     plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 
 
@@ -151,7 +165,7 @@ def plot_manifold(model, title, train_data, val_data, train_data_labels, kwargs 
 
     x, y = model.fit_transform(train_data, **kwargs).T
     plt.figure()
-      
+    
     # graph 1
     plt.scatter(x, y, label='train')
     add_cursor_labels(train_names)
@@ -160,13 +174,13 @@ def plot_manifold(model, title, train_data, val_data, train_data_labels, kwargs 
         plt.scatter(x_t, y_t, label='validation')
         plt.legend()
     except:
-        print("unable to run")
-      
+        print("unable to put val/test data on", title)
+    
     plt.title(title) # + f" (metric={kwargs.get('metric')})")
-    # plt.show()
+    plt.show()
     plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
-
-
+    
+    
     # graph 2
     if len(np.unique(train_data_labels)) > 1:
         plt.figure()
@@ -174,7 +188,7 @@ def plot_manifold(model, title, train_data, val_data, train_data_labels, kwargs 
             plt.scatter(x[train_data_labels == cluster_name], y[train_data_labels == cluster_name], label=cluster_name) #, s=4)
         plt.title(title + " by cluster names")
         plt.legend(bbox_to_anchor=(1.02, 1), loc='upper left', borderaxespad=0)
-        # plt.show()
+        plt.show()
         plt.savefig(os.path.join(output_path, datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S-%f') + '.png'))
 
   # # graph 3
@@ -204,4 +218,5 @@ plot_manifold(sklearn.manifold.TSNE(random_state=0), "TSNE (default distance met
 
 # tune t-SNE
 for perplexity in [5, 10, 60, 80]:
-    plot_manifold(sklearn.manifold.TSNE(metric=DISTANCE_METRIC, random_state=0, perplexity=perplexity), f"TSNE (perplexity={perplexity}, metric={DISTANCE_METRIC})", train_emb, val_emb, train_cluster_names)
+    plot_manifold(sklearn.manifold.TSNE(metric=DISTANCE_METRIC, random_state=0, perplexity=perplexity), 
+                  f"TSNE (perplexity={perplexity}, metric={DISTANCE_METRIC})", train_emb, val_emb, train_cluster_names)
