@@ -1,0 +1,21 @@
+import logging
+from typing import Any, Type, List, Optional, Dict, Union
+
+
+def configure_logging(verbosity: int, logfile: Union[str, None]):
+    level = logging.WARNING
+    if verbosity == 1:
+        level = logging.INFO
+    elif verbosity >= 2:
+        level = logging.DEBUG
+
+    handlers = [logging.StreamHandler()]
+    if logfile:
+        handlers = [logging.FileHandler(logfile, mode="a", encoding="utf-8")]
+        # handlers.append(logfile)
+
+    logging.basicConfig(
+        level=level,
+        format="%(asctime)s %(levelname)s: %(message)s",
+        handlers=handlers,
+    )
