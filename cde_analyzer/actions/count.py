@@ -1,0 +1,72 @@
+import argparse
+import json
+from logic.counter import count_matching_fields
+from utils.output_writer import write_output
+from CDE_Schema import CDEItem  # Replace with actual module
+
+
+def run_action(argv):
+    parser = argparse.ArgumentParser(prog="cde_analyzer count")
+    parser.add_argument("input", help="Input JSON file")
+    parser.add_argument("--fields", nargs="+", required=True)
+    parser.add_argument(
+        "--match-type",
+        choices=["non_null", "null", "fixed", "regex"],
+        default="non_null",
+    )
+    parser.add_argument(
+        "--value", help="Value to match if match-type is fixed or regex"
+    )
+    parser.add_argument(
+        "--output-format", choices=["json", "csv", "tsv"], default="json"
+    )
+    parser.add_argument("--output", help="Output file path")
+    parser.add_argument(
+        "--group-by",
+        help="Dotted path or key name to group by (e.g. tinyId or path.to.tinyId)",
+    )
+    parser.add_argument(
+        "--group-type", choices=["top", "path", "terminal"], default="top"
+    )
+    parser.add_argument("--logic", help="Logical expression (e.g. 'A and not B')")
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Enable debug output for group-by resolution",
+    )
+    parser.add_argument(
+        "--count-type",
+        action="store_true",
+        help="Classify and count field values by type (int, float, strN)",
+    )
+    parser.add_argument(
+        "--char-limit",
+        type=int,
+        default=10,
+        help="Character limit for short string classification",
+    )
+    parser.add_argument(
+        "--output-flat",
+        action="store_true",
+        help="Flatten nested result keys for easier analysis",
+    )
+
+    args = parser.parse_args(argv)
+
+    raw = json.load(open(args.input))
+    items = [CDEItem.model_validate(obj) for obj in raw]
+
+    results = count_matching_fields(
+        items=items,
+        field_names=args.fields,
+        match_type=args.match_type,
+        value_match=args.value,
+        logic_expr=args.logic,
+        group_by=args.group_by,
+        group_type=args.group_type,
+        verbose=args.verbose,
+        count_type=args.count_type,
+        char_limit=args.char_limit,
+    )
+
+    write_output(results, format=args.output_format, out_path=args.output)
