@@ -1,10 +1,12 @@
 import re
+import json
 from collections import defaultdict
 from core.recursor import recursive_descent
 from typing import TypeAlias, Union, Dict, List
 from utils.datatype_check import check_number_type, is_string_shorter
-from utils.helpers import safe_nested_increment
-
+from utils.helpers import (
+    safe_nested_increment,
+)
 
 IntDict: TypeAlias = Dict[str, int]
 NestedDict: TypeAlias = Dict[str, Union[IntDict, "NestedDict"]]

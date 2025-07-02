@@ -8,7 +8,7 @@ from typing import Any, Dict
 from pathlib import Path
 
 
-def write_output(data, format="json", out_path=None):
+def phrase_write_output(data, format="json", out_path=None):
     if format == "json":
         output = json.dumps(data, indent=2)
     elif format in {"csv", "tsv"}:

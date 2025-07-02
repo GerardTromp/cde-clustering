@@ -4,7 +4,7 @@ from typing import Any, Type, List, Optional, Dict, Union
 from pathlib import Path
 from logic.extractor import collect_all_phrase_occurrences
 from logic.htlm_stripper import process_file
-from utils.output_writer import write_output
+from utils.output_writer import phrase_write_output
 from utils.logger import configure_logging, logging
 
 

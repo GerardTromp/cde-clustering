@@ -1,7 +1,7 @@
 import argparse
 import json
 from logic.extractor import collect_all_phrase_occurrences
-from utils.output_writer import write_output
+from utils.output_writer import phrase_write_output
 
 # from pydantic import parse_file_as
 from pydantic import BaseModel
@@ -26,11 +26,18 @@ def run_action(argv):
     )
     parser.add_argument("--output", help="Output file path")
     parser.add_argument("--verbose", "-v", action="count", default=0)
+    parser.add_argument(
+        "--verbatim",
+        action="store_true",
+        help="Include verbatim (non-lemmatized) phrases alongside lemma phrases",
+    )
 
     args = parser.parse_args(argv)
 
     raw = json.load(open(args.input))
     items = [CDEItem.model_validate(obj) for obj in raw]
+
+    print(args)
 
     results = collect_all_phrase_occurrences(
         items=items,
@@ -41,6 +48,7 @@ def run_action(argv):
         verbosity=args.verbose,
         prune_subphrases=args.prune_subphrases,
         lemmatize=args.lemmatize,
+        verbatim=args.verbatim,
     )
 
-    write_output(results, format=args.output_format, out_path=args.output)
+    phrase_write_output(results, format=args.output_format, out_path=args.output)
