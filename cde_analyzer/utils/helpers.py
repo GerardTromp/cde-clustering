@@ -1,7 +1,7 @@
 # ------------------------------
 # File: utils/helpers.py
 # ------------------------------
-from typing import Any, Dict
+from typing import Any, Dict, List
 import csv
 import json
 
@@ -75,3 +75,47 @@ def safe_nested_append(d: Dict[str, Any], *keys: str, value: Any):
         current[last_key] = []
     if value not in current[last_key]:
         current[last_key].append(value)
+
+
+def extract_fields_by_tinyid(
+    items: List[Any], tinyids: List[str]
+) -> List[Dict[str, Any]]:
+    """
+    Extracts fields from a list of CDEItems given a list of target tinyIds.
+    """
+    rows = []
+    for item in items:
+        if item.tinyId not in tinyids:
+            continue
+
+        element_name = (
+            item.designations[0].designation if len(item.designations) > 0 else ""
+        )
+        question = (
+            item.designations[1].designation if len(item.designations) > 1 else ""
+        )
+        description = item.definitions[0].definition if item.definitions else ""
+
+        perm_vals = []
+        val_defs = []
+        val_names = []
+
+        if item.valueDomain and item.valueDomain.permissibleValues:
+            for pv in item.valueDomain.permissibleValues:
+                perm_vals.append(pv.permissibleValue or "")
+                val_defs.append(pv.valueMeaningDefinition or "")
+                val_names.append(pv.valueMeaningName or "")
+
+        rows.append(
+            {
+                "tinyId": item.tinyId,
+                "element_name": element_name,
+                "question": question,
+                "description": description,
+                "permissible_values": ";".join(perm_vals),
+                "value_meaning_definitions": ";".join(val_defs),
+                "value_meaning_names": ";".join(val_names),
+            }
+        )
+
+    return rows

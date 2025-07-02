@@ -1,0 +1,61 @@
+path,literal,max_occur
+definitions.*.definition,This term was developed in collaboration with the National Institute of Health's National Eye Institute (NEI) as part of an effort to standardize the data elements collected by the National Ophthalmic Disease Genotyping and Phenotyping Network (eyeGENE).,105
+definitions.*.definition,"NLM disclaimer: Consistent with Executive Order 14168, ""gender"" should not be used as a replacement for the element ""sex"" in the NIH CDE repository.",16
+definitions.*.definition,Complete the question for all hospitalized pulmonary embolism (PE)/deep vein thrombosis (DVT). Complete the question if outpatient (OP) records confirm deep vein thrombosis (DVT) or an autopsy report confirms pulmonary embolism.,11
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 8-3-1-9-6-4 in reverse order then 7-2-4-8-5-6 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 6-8-3-1 in reverse order then 3-4-8-1 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 5-2-6 in reverse order then 4-1-5 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 3-8-1-4 in reverse order then 3-2-7-9 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 4-9-3 in reverse order then 6-2-9 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 6-2-9-7-1 in reverse order then 1-5-2-8-5 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 4-9-1-5-3 in reverse order then 6-8-2-5-1 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 7-1-8-4-6-2 in reverse order then 5-3-9-1-4-8 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,"Subject's concentration score for correctly repeating the number 3-7-6-5-1-9 in reverse order then 9-2-6-5-1-4 also in reverse order , as part of Military Acute Concussion Evaluation (MACE).",9
+definitions.*.definition,To be completed by Physician who signed the death certificate and/or the patient's Physician.,8
+definitions.*.definition,To be completed by Physician who signed the death certificate and/or the patient's Physician. To be abstracted from patient's hospital medical records.,8
+definitions.*.definition,"To be abstracted from patient's hospital medical records.
+Please complete ENZYME CHART.",8
+definitions.*.definition,To be abstracted from patient's hospital medical records.,8
+definitions.*.definition,To be completed by Physician who signed the death certificate and/or the patient's Physician. To be abstracted from patient's hospital medical records.,8
+definitions.*.definition,"Registries may wish to add ""Other"" with free text to capture additional data. Responses to these free text items will not be uploaded to the GRDR repository.",6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 36-45 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 66+ years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 26-35 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 46-55 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 56-65 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's first of four major tasks or duties at the longest held occupation from the age of 0-25 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 66+ years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 56-65 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 26-35 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 36-45 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 46-55 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's longest held occupation from the age of 0-25 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,6
+definitions.*.definition,Text describing the participant's/subject's second of four major tasks or duties at the longest held occupation from the age of 36-45 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,5
+definitions.*.definition,Text describing the participant's/subject's second of four major tasks or duties at the longest held occupation from the age of 46-55 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,5
+definitions.*.definition,Text describing the participant's/subject's second of four major tasks or duties at the longest held occupation from the age of 56-65 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,5
+definitions.*.definition,Text describing the participant's/subject's second of four major tasks or duties at the longest held occupation from the age of 66+ years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,5
+definitions.*.definition,Text describing the participant's/subject's second of four major tasks or duties at the longest held occupation from the age of 0-25 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,5
+definitions.*.definition,Value of the points scored for story recall stories 7–8 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall stories 1–2 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall stories 9–10 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall stories 3–4 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall stories 5–6 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall–delayed stories 5–6 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall–delayed stories 9–10 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall–delayed stories 1–2 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall–delayed stories 3–4 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored for story recall–delayed stories 7–8 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored in writing samples items 19–30 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored in writing samples items 7–18 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored in writing samples items 13–24 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored in writing samples items 1–12 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,Value of the points scored in writing samples items 1–6 as part of the Woodcock Johnson III (WJ-III) tests of achievement.,5
+definitions.*.definition,"Other than the seizure[s] you had because of a high fever, Have you ever had, or has anyone ever told you that you had, any of the following...",4
+definitions.*.definition,Text describing the participant's/subject's fourth of four major tasks or duties at the longest held occupation from the age of 0-25 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,4
+definitions.*.definition,Text describing the participant's/subject's fourth of four major tasks or duties at the longest held occupation from the age of 26-35 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,4
+definitions.*.definition,Text describing the participant's/subject's fourth of four major tasks or duties at the longest held occupation from the age of 36-45 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,4
+definitions.*.definition,Text describing the participant's/subject's fourth of four major tasks or duties at the longest held occupation from the age of 56-65 years of age as part of the Risk Factor Questionnaire (RFQ) - Occupation.,4
+definitions.*.definition,"Status of whether total annual pre-tax income from all sources of all family members living in the same household is equal to/greater than or less than 50,000 USD.",4
+definitions.*.definition,"Status of whether total annual pre-tax income from all sources of all family members living in the same household is equal to/greater than or less than 75,000 USD.",4
+definitions.*.definition,"Status of whether total annual pre-tax income from all sources of all family members living in the same household is equal to/greater than or less than 100,000 USD.",4
+definitions.*.definition,"Status of whether total annual pre-tax income from all sources of all family members living in the same household is equal to/greater than or less than 35,000 USD.",4
