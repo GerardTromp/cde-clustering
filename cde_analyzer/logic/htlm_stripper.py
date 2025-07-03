@@ -10,7 +10,7 @@ from CDE_Schema import CDEForm, CDEItem
 from utils.html import clean_text_values
 from utils.output_writer import save_data
 from utils.cde_impexport import load_json
-from utils.logger import configure_logging, logging
+from utils.logger import logging
 
 
 # from strip_html import strip_html
@@ -24,7 +24,7 @@ MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
 
 
 def process_data(
-    data: Union[list, dict], model_class: Type[BaseModel], set_keys
+    data: Union[list, dict], model_class: Type[BaseModel], set_keys, tables, colnames
 ) -> list[dict]:
     logging.debug(f"Raw input type: {type(data).__name__}")
     if isinstance(data, dict):
@@ -33,7 +33,7 @@ def process_data(
         raise ValueError("Input must be a dict or list of dicts.")
 
     models = [model_class(**item) for item in data]
-    cleaned = [clean_text_values(model, set_keys) for model in models]
+    cleaned = [clean_text_values(model, set_keys, tables, colnames) for model in models]
     return [model.model_dump(by_alias=True) for model in cleaned]
 
 
@@ -45,11 +45,13 @@ def process_file(
     dry_run: bool,
     set_keys: bool,
     pretty: bool,
+    tables: bool,
+    colnames: bool,
 ):
     logging.info(f"Processing: {filepath}")
     try:
         raw_data = load_json(filepath)
-        cleaned_data = process_data(raw_data, model_class, set_keys)
+        cleaned_data = process_data(raw_data, model_class, set_keys, tables, colnames)
 
         output_path = outdir / f"{filepath.stem}_nohtml.{fmt}"
 

@@ -3,6 +3,7 @@
 # ------------------------------
 import unicodedata
 import warnings
+import json
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning  # type: ignore
 from pydantic import BaseModel
 from typing import Any, Type, List, Optional, Dict, Union
@@ -21,12 +22,16 @@ def strip_html(text: str) -> str:
     return soup.get_text()
 
 
-def clean_text_values(obj: Any, set_keys) -> Any:
+def clean_text_values(obj: Any, set_keys, tables: bool, colnames: bool) -> Any:
     if isinstance(obj, str):
-        return strip_html(obj)
+        if not tables:
+            return strip_html(obj)
+        else:
+            value = process_html_blob(obj, colnames)
+            return process_html_blob(obj, colnames)
     elif isinstance(obj, BaseModel):
         cleaned = {
-            k: clean_text_values(v, set_keys)
+            k: clean_text_values(v, set_keys, tables, colnames)
             for k, v in obj.model_dump(
                 exclude_unset=True if set_keys else False,
                 exclude_none=True if set_keys else False,
@@ -34,8 +39,73 @@ def clean_text_values(obj: Any, set_keys) -> Any:
         }
         return obj.__class__(**cleaned)
     elif isinstance(obj, list):
-        return [clean_text_values(item, set_keys) for item in obj]
+        return [clean_text_values(item, set_keys, tables, colnames) for item in obj]
     elif isinstance(obj, dict):
-        return {k: clean_text_values(v, set_keys) for k, v in obj.items()}
+        return {
+            k: clean_text_values(v, set_keys, tables, colnames) for k, v in obj.items()
+        }
     else:
         return obj
+
+
+def process_html_blob(html_string, header_col: bool):
+    """
+    Analyzes an HTML string to determine if it contains a table.
+    If it does, it converts the table to JSON. Otherwise, it extracts plain text.
+
+    Args:
+        html_string: The string containing HTML markup.
+
+    Returns:
+        A JSON string representing the table data (if a table is found)
+        or a simple string containing the extracted text.
+    """
+    soup = BeautifulSoup(html_string, "lxml")  # Use lxml parser
+
+    # Check if the HTML contains any table tags
+    table_tags = soup.find_all("table")
+
+    if table_tags:
+        # If tables are found, process the first table found
+        table = table_tags[0]
+        table_data = []
+
+        # Add logical, e.g., header_col T/F
+        #   if header_col( == T):
+        #      process as below
+        if header_col:
+            # Assuming the first row is the header, if applicable
+            header_row = table.find("tr")
+            headers = [
+                cell.get_text(strip=True) for cell in header_row.find_all(["th", "td"])
+            ]
+
+            for row in table.find_all("tr")[1:]:  # Start from the second row
+                row_data = [
+                    cell.get_text(strip=True) for cell in row.find_all(["td", "th"])
+                ]
+                # Create a dictionary for each row using headers as keys
+                row_dict = dict(zip(headers, row_data))
+                table_data.append(row_dict)
+
+        #   else: # (header_col is false)
+        #      add arbitrary rowname dictionary keys.
+        else:
+            row_cnt = 0
+            for row in table.find_all("tr")[0:]:  # Start from the first row
+                row_cnt += 1
+                row_data = [
+                    cell.get_text(strip=True) for cell in row.find_all(["td", "th"])
+                ]
+                header = f"row_{row_cnt}"
+                row_dict = dict([(header, row_data)])
+                table_data.append(row_dict)
+
+        # create a new dictionary structure to incorporate instead of a list with text
+        # rendered by json.dump
+        new_dict = {"table": table_data[0]}
+        return new_dict
+
+    else:
+        # If no tables are found, extract plain text
+        return soup.get_text(strip=True)  # Extract text and strip whitespace

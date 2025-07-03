@@ -2,9 +2,7 @@ import argparse
 import json
 from typing import Any, Type, List, Optional, Dict, Union
 from pathlib import Path
-from logic.extractor import collect_all_phrase_occurrences
 from logic.htlm_stripper import process_file
-from utils.output_writer import phrase_write_output
 from utils.logger import configure_logging, logging
 
 
@@ -23,7 +21,6 @@ def run_action(argv):
     parser = argparse.ArgumentParser(
         description="Clean and normalize string fields in structured JSON via Pydantic models."
     )
-    parser.add_argument("filenames", nargs="+", help="Input JSON file(s)")
     parser.add_argument(
         "--model",
         "-m",
@@ -65,8 +62,20 @@ def run_action(argv):
         default=True,
         help="Save model with keys only represented if they are set (no null, None, or empty sets)",
     )
+    parser.add_argument(
+        "--tables",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Convert html tables to JSON representation (default: --tables, i.e., true) or munged text (--no-tables)",
+    )
+    parser.add_argument(
+        "--colnames",
+        action="store_false",
+        help="Use first row of table as column names (default: false). Only relevant if --tables.",
+    )
+    parser.add_argument("filenames", nargs="+", help="Input JSON file(s)")
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
     configure_logging(args.verbosity, args.logfile)
 
     model_class = MODEL_REGISTRY[args.model]
@@ -85,22 +94,6 @@ def run_action(argv):
             args.dry_run,
             args.set_keys,
             args.pretty,
+            args.tables,
+            args.colnames,
         )
-
-
-#    raw = json.load(open(args.input))
-#    items = [CDEItem.model_validate(obj) for obj in raw]
-#
-#    results = collect_all_phrase_occurrences(
-#        items=items,
-#        field_names=args.fields,
-#        min_words=args.min_words,
-#        remove_stopwords=args.remove_stopwords,
-#        min_ids=args.min_ids,
-#        verbosity=args.verbose,
-#        prune_subphrases=args.prune_subphrases,
-#        lemmatize=args.lemmatize,
-#    )
-#
-#    write_output(results, format=args.output_format, out_path=args.output)
-#

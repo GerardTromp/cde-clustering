@@ -1,11 +1,12 @@
+#! /usr/bin/python3
 import sys
-from actions import phrase, count, html
+from actions import phrase, count, strip
 
 
 ACTIONS = {
     "phrase": phrase.run_action,
     "count": count.run_action,
-    "strip": html.run_action,
+    "strip": strip.run_action,
     #    "depth": depth.run_action,
     #    "quality": quality.run_action,
 }
