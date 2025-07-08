@@ -2,7 +2,9 @@
 
 import csv
 import json
+import logging
 from typing import Any, Dict, List, Union
+from collections import defaultdict
 
 
 def load_path_schema(path: str) -> Dict[str, str]:
@@ -22,6 +24,7 @@ def load_path_schema(path: str) -> Dict[str, str]:
             path_expr = row.get("path")
             if tag and path_expr:
                 schema[tag] = path_expr
+    logging.debug(f"The schema dictionary is: {schema}")
     return schema
 
 
@@ -64,3 +67,22 @@ def get_path_value(obj: Any, path: str) -> Union[str, List[str], None]:
                 return None
 
     return current
+
+
+def permis_values_to_dict_list(permisiblevalues: List[Dict]):
+    """
+    Converts a set of permissibleValue dictionaries
+    with keys:
+        codeSystemName, codeSystemVersion, permissibleValue, valueMeaningCode,
+        valueMeaningDefinition, valueMeaningName, conceptId, conceptSource
+    into a dictionary of lists, with the inner keys containing lists of
+    values.
+    )
+    """
+    dict_of_lists = defaultdict(list)
+
+    for d in permisiblevalues:
+        for key, value in d.items():
+            dict_of_lists[key].append(value)
+
+    return dict_of_lists

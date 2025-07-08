@@ -2,7 +2,7 @@ import argparse
 import json
 from typing import Any, Type, List, Optional, Dict, Union
 from pathlib import Path
-from logic.htlm_stripper import process_file
+from logic.html_stripper import process_file
 from utils.logger import configure_logging, logging
 
 

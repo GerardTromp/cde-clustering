@@ -1,6 +1,7 @@
 import argparse
 import json
-from logic.extractor import collect_all_phrase_occurrences
+import logging
+from logic.phrase_extractor import collect_all_phrase_occurrences
 from utils.output_writer import phrase_write_output
 
 # from pydantic import parse_file_as
@@ -10,7 +11,7 @@ from CDE_Schema import CDEItem  # type: ignore with your actual model
 # from your_model_import import CDEItem  # Replace with actual module
 
 
-def run_action(argv):
+def run_action(arglist):
     parser = argparse.ArgumentParser(prog="cde_analyzer phrase")
     parser.add_argument("input", help="Input JSON file")
     parser.add_argument("--fields", nargs="+", required=True)
@@ -32,12 +33,12 @@ def run_action(argv):
         help="Include verbatim (non-lemmatized) phrases alongside lemma phrases",
     )
 
-    args = parser.parse_args(argv)
+    args = parser.parse_args(arglist)
 
     raw = json.load(open(args.input))
     items = [CDEItem.model_validate(obj) for obj in raw]
 
-    print(args)
+    logging.info(f"arguments: {args}")
 
     results = collect_all_phrase_occurrences(
         items=items,

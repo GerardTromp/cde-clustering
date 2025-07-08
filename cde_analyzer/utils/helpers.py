@@ -77,17 +77,14 @@ def safe_nested_append(d: Dict[str, Any], *keys: str, value: Any):
         current[last_key].append(value)
 
 
-def extract_fields_by_tinyid(
-    items: List[Any], tinyids: List[str]
+def extract_embed_project_fields_by_tinyid(
+    items: List[Any], tinyids: List[str], logic: bool
 ) -> List[Dict[str, Any]]:
     """
     Extracts fields from a list of CDEItems given a list of target tinyIds.
     """
-    rows = []
-    for item in items:
-        if item.tinyId not in tinyids:
-            continue
 
+    def process_record(item):
         element_name = (
             item.designations[0].designation if len(item.designations) > 0 else ""
         )
@@ -118,4 +115,56 @@ def extract_fields_by_tinyid(
             }
         )
 
+    rows = []
+    for item in items:
+        if item.tinyId in tinyids:
+            if logic:
+                process_record(item)
+            else:
+                continue
+
     return rows
+
+
+def which_r(boolean_list):
+    """
+    Finds the indices of True values in a boolean list.
+
+    Args:
+        boolean_list: A list of boolean values (True or False).
+
+    Returns:
+        A list of indices where the boolean values are True.
+    """
+    return [i for i, x in enumerate(boolean_list) if x]
+
+
+def create_state_verbosity(initial_state):
+    """
+    Intention was to share the variable across modules, but the
+    assessor functions are seen as variables.
+    """
+    state_variable = initial_state  # The shared state variable
+
+    def modify_state(new_value):  # An "assessor" function
+        nonlocal state_variable  # Declare intent to modify the variable in the enclosing scope
+        state_variable = new_value
+
+    def access_state():  # Another "assessor" function
+        return state_variable
+
+    return modify_state, access_state  # Return the assessor functions
+
+
+# Generalized versions of the create_state_verbosity above.
+# Requires construction of the state dictionary in cde_analyzer main function
+# Then
+def get_state(state_dict, key):
+    """Accesses a state variable from the dictionary."""
+    return state_dict.get(key)  # Use .get() for safe access
+
+
+# 3. Define a mutator function (optional)
+def set_state(state_dict, key, value):
+    """Sets a state variable in the dictionary."""
+    state_dict[key] = value

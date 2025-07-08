@@ -25,7 +25,7 @@ MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
 
 def process_data(
     data: Union[list, dict], model_class: Type[BaseModel], set_keys, tables, colnames
-) -> list[dict]:
+) -> List[Dict]:
     logging.debug(f"Raw input type: {type(data).__name__}")
     if isinstance(data, dict):
         data = [data]

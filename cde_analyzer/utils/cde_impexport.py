@@ -51,10 +51,11 @@ def concatenate_values(data_list: list, delimiter: str = ", ") -> str:
     return delimiter.join(str(item) for item in data_list if item is not None)
 
 
-def load_json_data(file_path: str) -> CDEItem:
+## This is not quite right
+def load_json_model(file_path: str) -> List[CDEItem]:
     with open(file_path, "r") as f:
         data = json.load(f)
-    return CDEItem  # type: ignore
+    return list(CDEItem)  # type: ignore
 
 
 def load_json(filepath: Path) -> Union[list, dict]:
