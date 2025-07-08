@@ -3,6 +3,7 @@ import json
 import logging
 from logic.phrase_extractor import collect_all_phrase_occurrences
 from utils.output_writer import phrase_write_output
+from utils.analyzer_state import get_verbosity, set_verbosity
 
 # from pydantic import parse_file_as
 from pydantic import BaseModel
@@ -26,7 +27,7 @@ def run_action(arglist):
         "--output-format", choices=["json", "csv", "tsv"], default="json"
     )
     parser.add_argument("--output", help="Output file path")
-    parser.add_argument("--verbose", "-v", action="count", default=0)
+    # parser.add_argument("--verbose", "-v", action="count", default=0)
     parser.add_argument(
         "--verbatim",
         action="store_true",
@@ -35,6 +36,7 @@ def run_action(arglist):
 
     args = parser.parse_args(arglist)
 
+    verbosity = get_verbosity()
     raw = json.load(open(args.input))
     items = [CDEItem.model_validate(obj) for obj in raw]
 
@@ -46,7 +48,7 @@ def run_action(arglist):
         min_words=args.min_words,
         remove_stopwords=args.remove_stopwords,
         min_ids=args.min_ids,
-        verbosity=args.verbose,
+        verbosity=verbosity,
         prune_subphrases=args.prune_subphrases,
         lemmatize=args.lemmatize,
         verbatim=args.verbatim,

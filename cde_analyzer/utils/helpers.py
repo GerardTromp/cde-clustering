@@ -4,6 +4,7 @@
 from typing import Any, Dict, List
 import csv
 import json
+import logging
 
 
 def safe_nested_increment(d: Dict[str, Any], *keys: str, v: int = 1):
@@ -168,3 +169,15 @@ def get_state(state_dict, key):
 def set_state(state_dict, key, value):
     """Sets a state variable in the dictionary."""
     state_dict[key] = value
+
+
+def log_info(message: str, level: int = 2):
+    """
+    Custom logging that logs or discards base
+    on global verbosity.
+    Avoids so many conditionals.
+    """
+    from utils.analyzer_state import get_verbosity
+
+    if get_verbosity() >= level:
+        logging.info(message)

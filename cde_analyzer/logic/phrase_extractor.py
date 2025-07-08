@@ -1,11 +1,12 @@
 import re
+import logging
 from collections import defaultdict
 from typing import Any, Dict, List, Set, Optional, DefaultDict, Tuple, Union, TypeAlias
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
-from utils.helpers import safe_nested_append
+from utils.helpers import safe_nested_append, log_info
 
 # Download resources quietly
 nltk.download("punkt", quiet=True)
@@ -25,15 +26,12 @@ NestedDict: TypeAlias = Dict[str, Union[List, "NestedDict"]]
 def extract_phrases(
     text: str, min_words: int, remove_stopwords: bool, lemmatize: bool, verbosity: int
 ) -> List[str]:
-    if verbosity > 2:
-        print(f"[TOKENIZE] raw: {repr(text)}")
+    log_info(f"[TOKENIZE] raw: {repr(text)}", 3)
     words = word_tokenize(text.lower())
-    if verbosity > 2:
-        print(f"[TOKENIZE] tokens: {words}")
+    log_info(f"[TOKENIZE] tokens: {words}", 3)
 
     words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
-    if verbosity > 2:
-        print(f"[CLEANED] lemmas: {words}")
+    log_info(f"[CLEANED] lemmas: {words}", 3)
     if lemmatize:
         words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
     else:
@@ -41,16 +39,14 @@ def extract_phrases(
 
     if remove_stopwords:
         words = [w for w in words if w not in STOPWORDS]
-        if verbosity > 2:
-            print(f"[CLEANED] without stopwords: {words}")
+        log_info(f"[CLEANED] without stopwords: {words}", 3)
 
     phrases = []
     for size in range(min_words, len(words) + 1):
         for i in range(len(words) - size + 1):
             phrases.append(" ".join(words[i : i + size]))
 
-    if verbosity > 1:
-        print(f"[PHRASES] total: {len(phrases)}")
+    log_info(f"[PHRASES] total: {len(phrases)}", 2)
     return phrases
 
 
@@ -99,34 +95,25 @@ def collect_phrases_from_item(
     for key, value in iterator:
         new_path = f"{current_path}.{key}" if current_path else key
 
-        #        if isinstance(value, str):
-        #            if verbosity >= 1:
-        #                print(f"[__x__] {new_path}")
-
         if key in field_names and isinstance(value, str):
-            if verbosity >= 1:
-                print(f"[MATCH] {new_path}")
+            log_message = f"[MATCH] {new_path}"
+            log_info(log_message, 2)
             phrases = extract_phrases(
                 value, min_words, remove_stopwords, lemmatize, verbosity
             )
-            if verbosity >= 2:
-                print(f"         value: {repr(value)}")
-                print(f"[PHRASES] Extracted from {new_path}:")
+            # No need to use log_info here. Want to ONLY execute if logging desired
+            if verbosity >= 3:
+                logging.info(f"         value: {repr(value)}")
+                logging.info(f"[PHRASES] Extracted from {new_path}:")
                 for phrase in phrases:
-                    print(f"  - {phrase}")
+                    logging.info(f"  - {phrase}")
 
             #  rename value to ensure readability of code below
-            verbatim_phrase = value
+            # verbatim_phrase = value
 
             for phrase in phrases:
                 results[new_path][phrase].add(tiny_id)
                 verbatim_results[new_path][phrase].add(value)
-                # if verbatim:
-                #    safe_nested_append(
-                #        results, new_path, phrase, verbatim_phrase, value=tiny_id
-                #    )
-                # else:
-                #    safe_nested_append(results, new_path, phrase, value=tiny_id)
 
         elif isinstance(value, list):
             for elem in value:
@@ -222,32 +209,23 @@ def collect_all_phrase_occurrences(
         if verbatim:
             #                for path, lemma_dict in phrase_map.items():
             for lemma_phrase, tinyids in phrase_map.items():
-                if verbosity > 1:
-                    print(f"OUTPUT: lemma phrase {lemma_phrase}")
-                    for verbatim_phrase in (
-                        verbatim_map.get(path, {}).get(lemma_phrase, []) or []
-                    ):
-                        print(f"OUTPUT: verbatim phrase {verbatim_phrase}")
-                        for tid in tinyids:
-                            safe_nested_append(
-                                output,
-                                path,
-                                lemma_phrase,
-                                verbatim_phrase,
-                                value=tid,
-                            )
-                else:
-                    for verbatim_phrase in (
-                        verbatim_map.get(path, {}).get(lemma_phrase, []) or []
-                    ):
-                        for tid in tinyids:
-                            safe_nested_append(
-                                output,
-                                path,
-                                lemma_phrase,
-                                verbatim_phrase,
-                                value=tid,
-                            )
+                log_message = f"OUTPUT: lemma phrase {lemma_phrase}"
+                log_info(log_message, 3)
+                for verbatim_phrase in (
+                    verbatim_map.get(path, {}).get(lemma_phrase, []) or []
+                ):
+                    log_message = f"OUTPUT: verbatim phrase {verbatim_phrase}"
+                    log_info(log_message, 3)
+                    for tid in tinyids:
+                        if len(set(tinyids)) < min_ids:
+                            continue
+                        safe_nested_append(
+                            output,
+                            path,
+                            lemma_phrase,
+                            verbatim_phrase,
+                            value=tid,
+                        )
 
     return output
 
