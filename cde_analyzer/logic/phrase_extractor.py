@@ -6,7 +6,8 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
-from utils.helpers import safe_nested_append, log_info
+from utils.helpers import safe_nested_append
+from utils.logger import get_logger, log_if_verbose
 
 # Download resources quietly
 nltk.download("punkt", quiet=True)
@@ -22,16 +23,18 @@ lemmatizer = WordNetLemmatizer()
 PhraseMap = DefaultDict[str, DefaultDict[str, Set[str]]]
 NestedDict: TypeAlias = Dict[str, Union[List, "NestedDict"]]
 
+logger = logging.getLogger("cde_analyzer.phrase")
+
 
 def extract_phrases(
     text: str, min_words: int, remove_stopwords: bool, lemmatize: bool, verbosity: int
 ) -> List[str]:
-    log_info(f"[TOKENIZE] raw: {repr(text)}", 3)
+    logger.info(f"[TOKENIZE] raw: {repr(text)}", 3)
     words = word_tokenize(text.lower())
-    log_info(f"[TOKENIZE] tokens: {words}", 3)
+    logger.info(f"[TOKENIZE] tokens: {words}", 3)
 
     words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
-    log_info(f"[CLEANED] lemmas: {words}", 3)
+    logger.info(f"[CLEANED] lemmas: {words}", 3)
     if lemmatize:
         words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
     else:
@@ -39,14 +42,14 @@ def extract_phrases(
 
     if remove_stopwords:
         words = [w for w in words if w not in STOPWORDS]
-        log_info(f"[CLEANED] without stopwords: {words}", 3)
+        logger.info(f"[CLEANED] without stopwords: {words}", 3)
 
     phrases = []
     for size in range(min_words, len(words) + 1):
         for i in range(len(words) - size + 1):
             phrases.append(" ".join(words[i : i + size]))
 
-    log_info(f"[PHRASES] total: {len(phrases)}", 2)
+    logger.info(f"[PHRASES] total: {len(phrases)}", 2)
     return phrases
 
 
@@ -97,16 +100,16 @@ def collect_phrases_from_item(
 
         if key in field_names and isinstance(value, str):
             log_message = f"[MATCH] {new_path}"
-            log_info(log_message, 2)
+            log_if_verbose(log_message, 2)
             phrases = extract_phrases(
                 value, min_words, remove_stopwords, lemmatize, verbosity
             )
-            # No need to use log_info here. Want to ONLY execute if logging desired
+            # No need to use logger.info here. Want to ONLY execute if logger desired
             if verbosity >= 3:
-                logging.info(f"         value: {repr(value)}")
-                logging.info(f"[PHRASES] Extracted from {new_path}:")
+                logger.info(f"         value: {repr(value)}")
+                logger.info(f"[PHRASES] Extracted from {new_path}:")
                 for phrase in phrases:
-                    logging.info(f"  - {phrase}")
+                    logger.info(f"  - {phrase}")
 
             #  rename value to ensure readability of code below
             # verbatim_phrase = value
@@ -210,12 +213,12 @@ def collect_all_phrase_occurrences(
             #                for path, lemma_dict in phrase_map.items():
             for lemma_phrase, tinyids in phrase_map.items():
                 log_message = f"OUTPUT: lemma phrase {lemma_phrase}"
-                log_info(log_message, 3)
+                log_if_verbose(log_message, 3)
                 for verbatim_phrase in (
                     verbatim_map.get(path, {}).get(lemma_phrase, []) or []
                 ):
                     log_message = f"OUTPUT: verbatim phrase {verbatim_phrase}"
-                    log_info(log_message, 3)
+                    log_if_verbose(log_message, 3)
                     for tid in tinyids:
                         if len(set(tinyids)) < min_ids:
                             continue

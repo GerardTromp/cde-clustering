@@ -13,8 +13,7 @@ from utils.cde_impexport import load_json
 from utils.logger import logging
 
 
-# from strip_html import strip_html
-
+logger = logging.getLogger("cde_analyzer.strip")
 
 # === MODEL REGISTRY ===
 MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
@@ -26,7 +25,7 @@ MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
 def process_data(
     data: Union[list, dict], model_class: Type[BaseModel], set_keys, tables, colnames
 ) -> List[Dict]:
-    logging.debug(f"Raw input type: {type(data).__name__}")
+    logger.debug(f"Raw input type: {type(data).__name__}")
     if isinstance(data, dict):
         data = [data]
     elif not isinstance(data, list):
@@ -48,7 +47,7 @@ def process_file(
     tables: bool,
     colnames: bool,
 ):
-    logging.info(f"Processing: {filepath}")
+    logger.info(f"Processing: {filepath}")
     try:
         raw_data = load_json(filepath)
         cleaned_data = process_data(raw_data, model_class, set_keys, tables, colnames)
@@ -56,10 +55,10 @@ def process_file(
         output_path = outdir / f"{filepath.stem}_nohtml.{fmt}"
 
         if dry_run:
-            logging.info(f"[Dry-run] Would write: {output_path}")
+            logger.info(f"[Dry-run] Would write: {output_path}")
         else:
             save_data(cleaned_data, output_path, fmt, pretty)
-            logging.info(f"Saved cleaned data to: {output_path}")
+            logger.info(f"Saved cleaned data to: {output_path}")
 
     except Exception as e:
-        logging.error(f"Error processing {filepath.name}: {e}")
+        logger.error(f"Error processing {filepath.name}: {e}")

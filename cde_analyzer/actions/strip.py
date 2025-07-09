@@ -1,14 +1,14 @@
+#
+# File: actions/strip.py
+#
 import argparse
-import json
+from argparse import ArgumentParser, Namespace
 from typing import Any, Type, List, Optional, Dict, Union
 from pathlib import Path
 from logic.html_stripper import process_file
 from utils.logger import configure_logging, logging
-
-
-# from pydantic import parse_file_as
 from pydantic import BaseModel
-from CDE_Schema import CDEItem, CDEForm  # type: ignore with your actual model
+from CDE_Schema import CDEItem, CDEForm  # type: ignore
 
 # === MODEL REGISTRY ===
 MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
@@ -16,68 +16,66 @@ MODEL_REGISTRY: dict[str, Type[BaseModel]] = {
     "Form": CDEForm,
 }
 
+logger = logging.getLogger(__name__)
 
-def run_action(argv):
-    parser = argparse.ArgumentParser(
-        description="Clean and normalize string fields in structured JSON via Pydantic models."
+help_text = "Clean (strip) embedded HTML from JSON structure"
+description_text = "Clean and normalize string fields containing HTML in structured JSON via Pydantic models"
+
+
+def register_subparser(subparser: ArgumentParser):
+    subparser.add_argument(
+        "--input", help="Input JSON file that has underscore tags fixed."
     )
-    parser.add_argument(
-        "--model",
-        "-m",
-        required=True,
-        choices=MODEL_REGISTRY.keys(),
-        help="Model to use for validation",
+    subparser.add_argument(
+        "--fields", nargs="+", required=True, help="Field names from pydantic classes"
     )
-    parser.add_argument(
-        "--outdir",
-        default=".",
-        help="Directory for output files (default: current directory)",
+    subparser.add_argument(
+        "--min-words",
+        type=int,
+        default=2,
+        help="Minimum length of phrases, i.e., discard shorter phrases. (default: 2)",
     )
-    parser.add_argument(
-        "--format",
-        choices=["json", "yaml", "csv"],
+    subparser.add_argument(
+        "--min-ids",
+        type=int,
+        default=2,
+        help="Minimum number of objects that share a phrase. (default: 2)",
+    )
+    subparser.add_argument(
+        "--remove-stopwords",
+        action="store_true",
+        default=False,
+        help="Remove common English stop words (articles, prepositions, conjunctions)? (default: False)",
+    )
+    subparser.add_argument(
+        "--lemmatize",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Convert the text to standardized (lemma) form so that similar phrases match?",
+    )
+    subparser.add_argument(
+        "--prune-subphrases",
+        action="store_true",
+        help="Collect longest shared phrases? (default: False)",
+    )
+    subparser.add_argument(
+        "--output-format",
+        choices=["json", "csv", "tsv"],
         default="json",
-        help="Output format (default: json)",
+        help="Choose output format. (default JSON)",
     )
-    parser.add_argument(
-        "--dry-run", action="store_true", help="Do not write output files"
+    subparser.add_argument(
+        "--output", help="Path, including filename, to store results."
     )
-    parser.add_argument(
-        "--verbosity",
-        "-v",
-        action="count",
-        default=1,
-        help="Increase verbosity level (-vv for debug)",
+    subparser.add_argument(
+        "--verbatim",
+        action="store_true",
+        help="Include verbatim (non-lemmatized) phrases alongside lemma phrases. (default: False)",
     )
-    parser.add_argument("--logfile", help="Optional log file path")
-    parser.add_argument(
-        "--pretty",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Produce pretty (default: --pretty) or minified (--no-pretty) JSON (no whitespace)",
-    )
-    parser.add_argument(
-        "--set-keys",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Save model with keys only represented if they are set (no null, None, or empty sets)",
-    )
-    parser.add_argument(
-        "--tables",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Convert html tables to JSON representation (default: --tables, i.e., true) or munged text (--no-tables)",
-    )
-    parser.add_argument(
-        "--colnames",
-        action="store_false",
-        help="Use first row of table as column names (default: false). Only relevant if --tables.",
-    )
-    parser.add_argument("filenames", nargs="+", help="Input JSON file(s)")
+    subparser.set_defaults(func=run_action)
 
-    args = parser.parse_args(argv)
-    configure_logging(args.verbosity, args.logfile)
 
+def run_action(args: Namespace):
     model_class = MODEL_REGISTRY[args.model]
     outdir = Path(args.outdir)
 

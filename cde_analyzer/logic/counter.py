@@ -12,6 +12,8 @@ from utils.helpers import (
 IntDict: TypeAlias = Dict[str, int]
 NestedDict: TypeAlias = Dict[str, Union[IntDict, "NestedDict"]]
 
+logger = logging.getLogger("cde_analyzer.count")
+
 
 def match_condition(value, match_type, pattern):
     if value is None or value == "" or value == []:
@@ -101,8 +103,8 @@ def count_matching_fields(
         recursive_descent(item.model_dump(), path="", visitor=visitor)
 
         if verbose:
-            logging.debug(f"[DEBUG] flat keys: {flat}")
-            logging.debug(f"[DEBUG] logic_expr: {logic_expr}")
+            logger.debug(f"[DEBUG] flat keys: {flat}")
+            logger.debug(f"[DEBUG] logic_expr: {logic_expr}")
 
         try:
             result = (
@@ -112,8 +114,8 @@ def count_matching_fields(
             )
         except Exception as e:
             if verbose:
-                logging.warning(f"[ERROR] Failed logic eval: {e}")
-                logging.debug(f"[DEBUG] flat keys available: {list(flat.keys())}")
+                logger.warning(f"[ERROR] Failed logic eval: {e}")
+                logger.debug(f"[DEBUG] flat keys available: {list(flat.keys())}")
             result = False
 
         if result:
@@ -125,13 +127,13 @@ def count_matching_fields(
                 else "<global>"
             )
             if verbose and count_type:
-                logging.debug(f"[DEBUG] Typed keys: {flat_types}")
+                logger.debug(f"[DEBUG] Typed keys: {flat_types}")
             group_value = str(group_value)  # ensure it's a string key
             for key, count in flat.items():
                 if count_type:
                     val_type = flat_types.get(key, "unknown")
                     if verbose:
-                        logging.debug(
+                        logger.debug(
                             f"[DEBUG] Incrementing {key} -> {val_type} -> {group_value} by {count}"
                         )
                     safe_nested_increment(results, key, val_type, group_value, v=count)  # type: ignore

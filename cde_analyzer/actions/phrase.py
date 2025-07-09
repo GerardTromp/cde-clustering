@@ -1,6 +1,7 @@
-import argparse
 import json
 import logging
+import argparse
+from argparse import ArgumentParser, BooleanOptionalAction, Namespace
 from logic.phrase_extractor import collect_all_phrase_occurrences
 from utils.output_writer import phrase_write_output
 from utils.analyzer_state import get_verbosity, set_verbosity
@@ -9,38 +10,68 @@ from utils.analyzer_state import get_verbosity, set_verbosity
 from pydantic import BaseModel
 from CDE_Schema import CDEItem  # type: ignore with your actual model
 
-# from your_model_import import CDEItem  # Replace with actual module
+help_text = "Extract common phrases from CDE CDs or Forms"
+description_text = "Extract frequent phrases, verbatim or lemmatized, from designatted fields in CDE model classes"
+
+logger = logging.getLogger(__name__)
 
 
-def run_action(arglist):
-    parser = argparse.ArgumentParser(prog="cde_analyzer phrase")
-    parser.add_argument("input", help="Input JSON file")
-    parser.add_argument("--fields", nargs="+", required=True)
-    parser.add_argument("--min-words", type=int, default=2)
-    parser.add_argument("--min-ids", type=int, default=2)
-    parser.add_argument("--remove-stopwords", action="store_true")
-    parser.add_argument(
-        "--lemmatize", action=argparse.BooleanOptionalAction, default=True
+def register_subparser(subparser: ArgumentParser):
+    subparser.add_argument("--input", help="Input JSON file")
+    subparser.add_argument(
+        "--fields", nargs="+", required=True, help="Field names from pydantic classes"
     )
-    parser.add_argument("--prune-subphrases", action="store_true")
-    parser.add_argument(
-        "--output-format", choices=["json", "csv", "tsv"], default="json"
+    subparser.add_argument(
+        "--min-words",
+        type=int,
+        default=2,
+        help="Minimum length of phrases, i.e., discard shorter phrases",
     )
-    parser.add_argument("--output", help="Output file path")
-    # parser.add_argument("--verbose", "-v", action="count", default=0)
-    parser.add_argument(
+    subparser.add_argument(
+        "--min-ids",
+        type=int,
+        default=2,
+        help="Minimum number of objects that share a phrase",
+    )
+    subparser.add_argument(
+        "--remove-stopwords",
+        action="store_true",
+        help="Remove common English stop words (articles, prepositions, conjunctions)?",
+    )
+    subparser.add_argument(
+        "--lemmatize",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Convert the text to standardized (lemma) form so that similar phrases match?",
+    )
+    subparser.add_argument(
+        "--prune-subphrases",
+        action="store_true",
+        help="Collect longest shared phrases?",
+    )
+    subparser.add_argument(
+        "--output-format",
+        choices=["json", "csv", "tsv"],
+        default="json",
+        help="Choose output format",
+    )
+    subparser.add_argument(
+        "--output", help="Path, including filename, to store results."
+    )
+    subparser.add_argument(
         "--verbatim",
         action="store_true",
         help="Include verbatim (non-lemmatized) phrases alongside lemma phrases",
     )
+    subparser.set_defaults(func=run_action)
 
-    args = parser.parse_args(arglist)
 
+def run_action(args: Namespace):
     verbosity = get_verbosity()
     raw = json.load(open(args.input))
     items = [CDEItem.model_validate(obj) for obj in raw]
 
-    logging.info(f"arguments: {args}")
+    logger.info(f"arguments: {args}")
 
     results = collect_all_phrase_occurrences(
         items=items,

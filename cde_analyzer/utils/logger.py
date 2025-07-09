@@ -19,3 +19,19 @@ def configure_logging(verbosity: int, logfile: Union[str, None]):
         format="%(asctime)s %(levelname)s: %(message)s",
         handlers=handlers,
     )
+
+
+def get_logger(name: str) -> logging.Logger:
+    return logging.getLogger(name)
+
+
+def log_if_verbose(message: str, level: int = 2):
+    """
+    Custom logging that logs or discards based
+    on global verbosity.
+    Avoids so many conditionals.
+    """
+    from utils.analyzer_state import get_verbosity
+
+    if get_verbosity() >= level:
+        logging.info(message)

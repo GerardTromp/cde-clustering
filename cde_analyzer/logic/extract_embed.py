@@ -13,6 +13,8 @@ from utils.path_utils import (
 from utils.analyzer_state import get_verbosity, set_verbosity
 from CDE_Schema.CDE_Item import CDEItem
 
+logger = logging.getLogger("cde_analyzer.extract_embed")
+
 
 # This function can be generalized by changing data to a List[Basemodel]
 # would need to check the schmema_path for validity
@@ -26,7 +28,7 @@ def extract_path(
 ):
     verbosity = get_verbosity()
     if verbosity > 1:
-        logging.debug(f"[DEBUG] The list of tinyIds is: {tinyids}")
+        logger.debug(f"[DEBUG] The list of tinyIds is: {tinyids}")
     if schema_path:
         schema = load_path_schema(schema_path)
         rows = []
@@ -34,25 +36,25 @@ def extract_path(
             if exclude:
                 if item.tinyId in tinyids:
                     if verbosity > 2:
-                        logging.debug(
+                        logger.debug(
                             f"[extract_embed logic] Check tinyId: {item.tinyId}"
                         )
                     continue
             row: Dict[str, str] = {"tinyId": item.tinyId}  # type: ignore
             for tag, path_expr in schema.items():
                 val = get_path_value(item.model_dump(), path_expr)
-                #                logging.debug(f"Processing: {tag}\t{path_expr}:\t{val}")
+                #                logger.debug(f"Processing: {tag}\t{path_expr}:\t{val}")
                 if isinstance(val, list):
                     if all(isinstance(item, dict) for item in val):
                         val = permis_values_to_dict_list(val)  # type: ignore -- we have checked
                         if verbosity > 3:
-                            logging.debug(
+                            logger.debug(
                                 f"[extract_embed logic] Simplified _dictionary_ -- val is: {val}"
                             )
                         vdict = {}
                         for vtag, vdata in val.items():
                             if verbosity > 2:
-                                logging.debug(
+                                logger.debug(
                                     f"[extract_embed logic]  collapsing permis vals -- vtag is: {vtag}, vdata is: {vdata}"
                                 )
                             if isinstance(vdata, list):
@@ -62,7 +64,7 @@ def extract_path(
                     else:
                         val = ";".join(str(v) for v in val)
                         if verbosity > 3:
-                            logging.debug(
+                            logger.debug(
                                 f"[extract_embed logic] Flattened [list] -- val is: {val}"
                             )
                 row[tag] = val if val is not None else ""  # type: ignore
