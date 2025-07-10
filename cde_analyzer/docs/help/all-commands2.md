@@ -3,15 +3,18 @@
 # `cde_analyzer` Command
 
 ```typescript
-usage: export_help_docs.py [-h] {} ...
+usage: cde_analyzer.py [-h] [--verbosity] [--logfile LOGFILE] \
+                       {phrase,count,strip,extract_embed,fix_underscores}
 
 CDE Analyzer CLI
 
-positional arguments:
-  {}
+action arguments:
+                        phrase,count,strip,extract_embed,fix_underscores
 
 options:
   -h, --help  show this help message and exit
+  --verbosity           Increase verbosity of logging
+  --logfile LOGFILE     Write logging to LOGFILE rather than STDERR
 ```
 
 ---
