@@ -1,0 +1,10 @@
+usage: export_help_docs.py fix_underscores [-h] [--input INPUT] [--output OUTPUT] [--prefix PREFIX] [--depth DEPTH]
+
+fix_underscores command
+
+options:
+  -h, --help       show this help message and exit
+  --input INPUT    Full path, including name, of input JSON file
+  --output OUTPUT  Full path, including name, of output JSON file
+  --prefix PREFIX  Character to prepend on fields starting with an underscore
+  --depth DEPTH    Maximum depth (JSON nesting) to process

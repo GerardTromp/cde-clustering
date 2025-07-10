@@ -27,50 +27,59 @@ def register_subparser(subparser: ArgumentParser):
         "--input", help="Input JSON file that has underscore tags fixed."
     )
     subparser.add_argument(
-        "--fields", nargs="+", required=True, help="Field names from pydantic classes"
-    )
-    subparser.add_argument(
-        "--min-words",
-        type=int,
-        default=2,
-        help="Minimum length of phrases, i.e., discard shorter phrases. (default: 2)",
-    )
-    subparser.add_argument(
-        "--min-ids",
-        type=int,
-        default=2,
-        help="Minimum number of objects that share a phrase. (default: 2)",
-    )
-    subparser.add_argument(
-        "--remove-stopwords",
-        action="store_true",
-        default=False,
-        help="Remove common English stop words (articles, prepositions, conjunctions)? (default: False)",
-    )
-    subparser.add_argument(
-        "--lemmatize",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Convert the text to standardized (lemma) form so that similar phrases match?",
-    )
-    subparser.add_argument(
-        "--prune-subphrases",
-        action="store_true",
-        help="Collect longest shared phrases? (default: False)",
-    )
-    subparser.add_argument(
-        "--output-format",
-        choices=["json", "csv", "tsv"],
-        default="json",
-        help="Choose output format. (default JSON)",
-    )
-    subparser.add_argument(
         "--output", help="Path, including filename, to store results."
     )
     subparser.add_argument(
-        "--verbatim",
-        action="store_true",
-        help="Include verbatim (non-lemmatized) phrases alongside lemma phrases. (default: False)",
+        "--model",
+        "-m",
+        required=True,
+        choices=MODEL_REGISTRY.keys(),
+        help="Model to use for validation",
+    )
+    subparser.add_argument(
+        "--outdir",
+        default=".",
+        help="Directory for output files (default: current directory)",
+    )
+    subparser.add_argument(
+        "--format",
+        choices=["json", "yaml", "csv"],
+        default="json",
+        help="Output format (default: json)",
+    )
+    subparser.add_argument(
+        "--dry-run", action="store_true", help="Do not write output files"
+    )
+    subparser.add_argument(
+        "--verbosity",
+        "-v",
+        action="count",
+        default=1,
+        help="Increase verbosity level (-vv for debug)",
+    )
+    subparser.add_argument("--logfile", help="Optional log file path")
+    subparser.add_argument(
+        "--pretty",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Produce pretty (default: --pretty) or minified (--no-pretty) JSON (no whitespace)",
+    )
+    subparser.add_argument(
+        "--set-keys",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Save model with keys only represented if they are set (no null, None, or empty sets)",
+    )
+    subparser.add_argument(
+        "--tables",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Convert html tables to JSON representation (default: --tables, i.e., true) or munged text (--no-tables)",
+    )
+    subparser.add_argument(
+        "--colnames",
+        action="store_false",
+        help="Use first row of table as column names (default: false). Only relevant if --tables.",
     )
     subparser.set_defaults(func=run_action)
 

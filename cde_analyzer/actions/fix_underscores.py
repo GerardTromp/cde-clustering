@@ -13,49 +13,16 @@ description_text = "Pydantic reserves keys beginning with an underscore as priva
 
 
 def register_subparser(subparser: ArgumentParser):
-    subparser.add_argument("input", help="Input JSON file")
-    ids = subparser.add_mutually_exclusive_group()
-    ids.add_argument(
-        "--id-list",
-        nargs="+",
-        required=False,
-        help="List of identifiers to exclude/include (see --exclude)",
-    )
-    ids.add_argument(
-        "--id-file", help="Path to file with list of identifiers (JSON, csv, or tsv)"
+    subparser.add_argument(
+        "--input", help="Full path, including name, of input JSON file"
     )
     subparser.add_argument(
-        "--id-type",
-        help=textwrap.dedent(
-            """
-            Pydantic path/tag for identifier, i.e., what type of identifier. \n
-              Required if either --id-list or --id-file is provided.
-            """
-        ),
+        "--output", help="Full path, including name, of output JSON file"
     )
     subparser.add_argument(
-        "--exclude",
-        action=argparse.BooleanOptionalAction,
-        default=True,
-        help="Should provided tinyId's be excluded (--exclude) or included (--no-exclude)",
+        "--prefix", help="Character to prepend on fields starting with an underscore"
     )
-    subparser.add_argument(
-        "--path-file",
-        required=True,
-        help="File with the key-value pairs defining the names (key) and paths (value) to be extracted",
-    )
-    subparser.add_argument(
-        "--output",
-        required=True,
-        help="Path, including filename, where to store extracted fields.",
-    )
-    subparser.add_argument(
-        "--output-format",
-        required=False,
-        choices=["json", "csv", "tsv"],
-        default="json",
-        help="Format for file with extracted data.",
-    )
+    subparser.add_argument("--depth", help="Maximum depth (JSON nesting) to process")
     subparser.set_defaults(func=run_action)
 
 

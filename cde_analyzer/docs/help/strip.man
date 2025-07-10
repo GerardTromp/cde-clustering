@@ -1,0 +1,24 @@
+usage: export_help_docs.py strip [-h] [--input INPUT] [--output OUTPUT] --model {CDE,Form} [--outdir OUTDIR] [--format {json,yaml,csv}] [--dry-run] [--verbosity]
+                                 [--logfile LOGFILE] [--pretty | --no-pretty] [--set-keys | --no-set-keys] [--tables | --no-tables] [--colnames]
+
+strip command
+
+options:
+  -h, --help            show this help message and exit
+  --input INPUT         Input JSON file that has underscore tags fixed.
+  --output OUTPUT       Path, including filename, to store results.
+  --model {CDE,Form}, -m {CDE,Form}
+                        Model to use for validation
+  --outdir OUTDIR       Directory for output files (default: current directory)
+  --format {json,yaml,csv}
+                        Output format (default: json)
+  --dry-run             Do not write output files
+  --verbosity, -v       Increase verbosity level (-vv for debug)
+  --logfile LOGFILE     Optional log file path
+  --pretty, --no-pretty
+                        Produce pretty (default: --pretty) or minified (--no-pretty) JSON (no whitespace) (default: True)
+  --set-keys, --no-set-keys
+                        Save model with keys only represented if they are set (no null, None, or empty sets) (default: True)
+  --tables, --no-tables
+                        Convert html tables to JSON representation (default: --tables, i.e., true) or munged text (--no-tables) (default: True)
+  --colnames            Use first row of table as column names (default: false). Only relevant if --tables.
