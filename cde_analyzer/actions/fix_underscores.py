@@ -8,21 +8,27 @@ from argparse import ArgumentParser, BooleanOptionalAction, Namespace
 
 logger = logging.getLogger(__name__)
 
-help_text = "Prepend a character to JSON keys starting with an underscore"
-description_text = "Pydantic reserves keys beginning with an underscore as private. Convert to start with another character"
+help_text = "Prepend a character to JSON keys starting with an underscore."
+description_text = "Pydantic reserves keys beginning with an underscore as private. Convert to start with another character."
 
 
 def register_subparser(subparser: ArgumentParser):
     subparser.add_argument(
-        "--input", help="Full path, including name, of input JSON file"
+        "--input", help="Full path, including name, of input JSON file."
     )
     subparser.add_argument(
-        "--output", help="Full path, including name, of output JSON file"
+        "--output", help="Full path, including name, of output JSON file."
     )
     subparser.add_argument(
-        "--prefix", help="Character to prepend on fields starting with an underscore"
+        "--prefix",
+        required=True,
+        help="Character to prepend on fields starting with an underscore.",
     )
-    subparser.add_argument("--depth", help="Maximum depth (JSON nesting) to process")
+    subparser.add_argument(
+        "--depth",
+        type=int,
+        help="Maximum depth (JSON nesting) to process. (type integer)",
+    )
     subparser.set_defaults(func=run_action)
 
 

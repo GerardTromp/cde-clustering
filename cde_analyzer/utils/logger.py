@@ -21,10 +21,6 @@ def configure_logging(verbosity: int, logfile: Union[str, None]):
     )
 
 
-def get_logger(name: str) -> logging.Logger:
-    return logging.getLogger(name)
-
-
 def log_if_verbose(message: str, level: int = 2):
     """
     Custom logging that logs or discards based

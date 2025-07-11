@@ -1,5 +1,5 @@
 #
-# File: actions/strip.py
+# File: actions/strip_html.py
 #
 import argparse
 from argparse import ArgumentParser, Namespace
@@ -24,11 +24,11 @@ description_text = "Clean and normalize string fields containing HTML in structu
 
 def register_subparser(subparser: ArgumentParser):
     subparser.add_argument(
-        "--input", help="Input JSON file that has underscore tags fixed."
+        "--input", nargs="+", help="Input JSON file that has underscore tags fixed."
     )
-    subparser.add_argument(
-        "--output", help="Path, including filename, to store results."
-    )
+    # subparser.add_argument(
+    #     "--output", help="Path, including filename, to store results."
+    # )
     subparser.add_argument(
         "--model",
         "-m",
@@ -78,7 +78,8 @@ def register_subparser(subparser: ArgumentParser):
     )
     subparser.add_argument(
         "--colnames",
-        action="store_false",
+        action="store_true",
+        default=False,
         help="Use first row of table as column names (default: false). Only relevant if --tables.",
     )
     subparser.set_defaults(func=run_action)
@@ -88,7 +89,7 @@ def run_action(args: Namespace):
     model_class = MODEL_REGISTRY[args.model]
     outdir = Path(args.outdir)
 
-    for filename in args.filenames:
+    for filename in args.input:
         filepath = Path(filename)
         if not filepath.is_file():
             logging.warning(f"Skipping: {filename} is not a valid file.")

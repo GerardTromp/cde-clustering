@@ -172,7 +172,7 @@ class ReferenceDocument(BaseModel):
 class Property(BaseModel):
     key: Optional[str]
     source: Optional[str] = None
-    value: Optional[Union[str, Dict]]
+    value: Optional[Union[str, dict]]
     valueFormat: Optional[str] = None
 
 

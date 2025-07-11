@@ -1,7 +1,14 @@
 #! /usr/bin/python3
 import sys
 import argparse
-from actions import phrase, count, strip, extract_embed, fix_underscores
+from actions import (
+    phrase,
+    count,
+    extract_embed,
+    fix_underscores,
+    strip_html,
+    strip_phrases,
+)
 from utils.logger import configure_logging
 from utils.helpers import which_r, get_state, set_state
 from utils.analyzer_state import get_verbosity, set_verbosity
@@ -10,9 +17,10 @@ from utils.analyzer_state import get_verbosity, set_verbosity
 ACTIONS = {
     "phrase": phrase,
     "count": count,
-    "strip": strip,
+    "strip_html": strip_html,
     "extract_embed": extract_embed,
     "fix_underscores": fix_underscores,
+    "strip_phrases": strip_phrases,
     #    "depth": depth.run_action,
     #    "quality": quality.run_action,
 }

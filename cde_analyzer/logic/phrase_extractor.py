@@ -7,7 +7,7 @@ from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
 import nltk
 from utils.helpers import safe_nested_append
-from utils.logger import get_logger, log_if_verbose
+from utils.logger import log_if_verbose
 
 # Download resources quietly
 nltk.download("punkt", quiet=True)
