@@ -43,7 +43,9 @@ def register_subparser(subparser: ArgumentParser):
     subparser.add_argument(
         "-o", "--output", required=True, help="Path to output JSON file."
     )
+    # This should be moved to post-processing. Inefficient and memory hungry
     subparser.add_argument(
+        "-d",
         "--diff",
         action="store_true",
         help="Show diff between original and cleaned JSON",
@@ -51,11 +53,14 @@ def register_subparser(subparser: ArgumentParser):
     subparser.add_argument(
         "--diff-output", type=str, help="Path to file for writing diff information."
     )
-    subparser.add_argument("--color", action="store_true", help="Colorize diff output.")
+    subparser.add_argument(
+        "-c", "--color", action="store_true", help="Colorize diff output."
+    )
     subparser.add_argument(
         "--summary", action="store_true", help="Show a summary of lines changed lines."
     )
     subparser.add_argument(
+        "-C",
         "--context",
         type=int,
         default=3,
@@ -65,13 +70,16 @@ def register_subparser(subparser: ArgumentParser):
 
 
 def run_action(args: Namespace):
+    model_class = MODEL_REGISTRY[args.model]
+
     with open(args.input, encoding="utf-8") as f:
         data = json.load(f)
 
     # Parse into model if needed
     # items = [CDEItem.model_validate(obj) for obj in raw]
     try:
-        parsed = [CDEItem.model_validate(obj) for obj in data]  # or other model
+        parsed = [model_class.model_validate(obj) for obj in data]  # or other model
+    # Some verbose error output. Appropriate for STDERR
     except ValidationError as e:
         for error in e.errors():
             print(f"Error Type: {error['type']}")
@@ -82,21 +90,15 @@ def run_action(args: Namespace):
             if "ctx" in error:
                 print(f"Context: {error['ctx']}")
             print("-" * 20)
-    # parsed = CDEItem.model_validate(data)  # or other model
-    # phrase_map = load_phrase_map(args.phrases)
-    # cleaned = strip_phrases(parsed, phrase_map)
     else:
-        #        parsed = CDEItem.model_validate(data)  # or other model
         phrase_map = load_phrase_map(args.phrases)
-        cleaned = strip_phrases(parsed, phrase_map)  # type: ignore CDEItem is a BaseModel and should work
+        cleaned = strip_phrases(parsed, phrase_map)
 
         with open(args.output, "w", encoding="utf-8") as f:
             cleaned_json = [item.model_dump(mode="json") for item in cleaned]
             f.write(json.dumps(cleaned_json, indent=2))
 
         if args.diff or args.diff_output or args.summary:
-            # original_json = json.dumps(parsed.model_dump(mode="json"), indent=2)
-            # cleaned_json = json.dumps(cleaned.model_dump(mode="json"), indent=2)
             original_json = [item.model_dump(mode="json") for item in parsed]
             cleaned_json = [item.model_dump(mode="json") for item in cleaned]
             original_json = json.dumps(original_json, indent=2)

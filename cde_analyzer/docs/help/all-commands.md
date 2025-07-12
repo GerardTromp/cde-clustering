@@ -82,13 +82,13 @@ options:
 
 ---
 
-# `strip` Command
+# `strip_html` Command
 
 ```typescript
-usage: strip [-h] [--input INPUT] [--output OUTPUT] \
-             --model {CDE,Form} [--outdir OUTDIR] [--format {json,yaml,csv}] \
-             [--dry-run] [--verbosity] [--logfile LOGFILE] [--pretty | --no-pretty] \
-             [--set-keys | --no-set-keys] [--tables | --no-tables] [--colnames]
+usage: strip_html  [-h] [--input INPUT] [--output OUTPUT] \
+                   --model {CDE,Form} [--outdir OUTDIR] [--format {json,yaml,csv}] \
+                   [--dry-run] [--verbosity] [--logfile LOGFILE] [--pretty | --no-pretty] \
+                   [--set-keys | --no-set-keys] [--tables | --no-tables] [--colnames]
 
 strip command
 
@@ -115,7 +115,6 @@ options:
                         i.e., true) or munged text (--no-tables) (default: True)
   --colnames            Use first row of table as column names (default: false). 
                         Only relevant if --tables.---
-
 ```
 
 ---
