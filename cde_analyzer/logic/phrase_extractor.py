@@ -5,6 +5,9 @@ from typing import Any, Dict, List, Set, Optional, DefaultDict, Tuple, Union, Ty
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from nltk.corpus import stopwords
+from nltk.tag import pos_tag
+from nltk import word_tokenize, pos_tag
+from nltk.corpus import wordnet
 import nltk
 from utils.helpers import safe_nested_append
 from utils.logger import log_if_verbose
@@ -14,6 +17,7 @@ nltk.download("punkt", quiet=True)
 nltk.download("punkt_tab", quiet=True)
 nltk.download("wordnet", quiet=True)
 nltk.download("stopwords", quiet=True)
+nltk.download("averaged_perceptron_tagger_eng", quiet=True)
 
 # Global resources
 STOPWORDS = set(stopwords.words("english"))
@@ -26,30 +30,51 @@ NestedDict: TypeAlias = Dict[str, Union[List, "NestedDict"]]
 logger = logging.getLogger("cde_analyzer.phrase")
 
 
+def get_wordnet_pos(tag: str) -> str:
+    """Map POS tag to format WordNetLemmatizer accepts."""
+    if tag.startswith("J"):
+        return wordnet.ADJ
+    elif tag.startswith("V"):
+        return wordnet.VERB
+    elif tag.startswith("N"):
+        return wordnet.NOUN
+    elif tag.startswith("R"):
+        return wordnet.ADV
+    return wordnet.NOUN  # default to noun
+
+
 def extract_phrases(
     text: str, min_words: int, remove_stopwords: bool, lemmatize: bool, verbosity: int
 ) -> List[str]:
-    logger.info(f"[TOKENIZE] raw: {repr(text)}", 3)
-    words = word_tokenize(text.lower())
-    logger.info(f"[TOKENIZE] tokens: {words}", 3)
+    log_if_verbose(f"[TOKENIZE] raw: {repr(text)}", 3)
+    tokens = word_tokenize(text.lower())
+    log_if_verbose(f"[TOKENIZE] tokens: {tokens}", 3)
 
-    words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
-    logger.info(f"[CLEANED] lemmas: {words}", 3)
+    # Filter out non-alphanumeric before POS tagging
+    tokens = [w for w in tokens if w.isalnum()]
+
     if lemmatize:
-        words = [lemmatizer.lemmatize(w) for w in words if w.isalnum()]
+        pos_tags = pos_tag(tokens)
+        log_if_verbose(f"[POS] tags: {pos_tags}", 3)
+
+        words = [
+            lemmatizer.lemmatize(word, get_wordnet_pos(pos)) for word, pos in pos_tags
+        ]
     else:
-        words = [w for w in words if w.isalnum()]
+        words = tokens
+
+    log_if_verbose(f"[CLEANED] lemmas: {words}", 3)
 
     if remove_stopwords:
         words = [w for w in words if w not in STOPWORDS]
-        logger.info(f"[CLEANED] without stopwords: {words}", 3)
+        log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
 
     phrases = []
     for size in range(min_words, len(words) + 1):
         for i in range(len(words) - size + 1):
             phrases.append(" ".join(words[i : i + size]))
 
-    logger.info(f"[PHRASES] total: {len(phrases)}", 2)
+    log_if_verbose(f"[PHRASES] total: {len(phrases)}", 2)
     return phrases
 
 
@@ -104,12 +129,12 @@ def collect_phrases_from_item(
             phrases = extract_phrases(
                 value, min_words, remove_stopwords, lemmatize, verbosity
             )
-            # No need to use logger.info here. Want to ONLY execute if logger desired
+            # No need to use log_if_verbose here. Want to ONLY execute if logger desired
             if verbosity >= 3:
-                logger.info(f"         value: {repr(value)}")
-                logger.info(f"[PHRASES] Extracted from {new_path}:")
+                log_if_verbose(f"         value: {repr(value)}")
+                log_if_verbose(f"[PHRASES] Extracted from {new_path}:")
                 for phrase in phrases:
-                    logger.info(f"  - {phrase}")
+                    log_if_verbose(f"  - {phrase}")
 
             #  rename value to ensure readability of code below
             # verbatim_phrase = value
