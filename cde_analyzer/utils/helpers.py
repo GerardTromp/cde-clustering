@@ -39,7 +39,7 @@ def flatten_nested_dict(d: Dict[str, Any], prefix: str = "") -> Dict[str, int]:
 
 
 def export_results_csv(results: Dict[str, Any], output_path: str, group_by_field: str):
-    with open(output_path, "w", newline="") as f:
+    with open(output_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["field", "datatype", f"groupby_{group_by_field}", "count"])
         for field, type_dict in results.items():
@@ -51,7 +51,7 @@ def export_results_csv(results: Dict[str, Any], output_path: str, group_by_field
 
 
 def export_results_tsv(results: Dict[str, Any], output_path: str, group_by_field: str):
-    with open(output_path, "w", newline="") as f:
+    with open(output_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f, delimiter="\t")
         writer.writerow(["field", "datatype", f"groupby_{group_by_field}", "count"])
         for field, type_dict in results.items():

@@ -27,11 +27,11 @@ def load_tinyids(path: str) -> List[str]:
     identifiers. Then the function could work for an ID with any name and any set of mappings
     """
     if path.endswith(".json"):
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)["tinyId"]
 
     id_list = []
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t" if path.endswith(".tsv") else ",")
         for row in reader:
             new_row = {}

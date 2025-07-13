@@ -94,7 +94,7 @@ def run_action(args: Namespace):
         phrase_map = load_phrase_map(args.phrases)
         cleaned = strip_phrases(parsed, phrase_map)
 
-        with open(args.output, "w", encoding="utf-8") as f:
+        with open(args.output, "w", encoding="utf-8", newline="") as f:
             cleaned_json = [item.model_dump(mode="json") for item in cleaned]
             f.write(json.dumps(cleaned_json, indent=2))
 

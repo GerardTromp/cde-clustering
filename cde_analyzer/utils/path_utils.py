@@ -13,11 +13,11 @@ def load_path_schema(path: str) -> Dict[str, str]:
     Supports JSON, TSV, or CSV.
     """
     if path.endswith(".json"):
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             return json.load(f)
 
     schema = {}
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         reader = csv.DictReader(f, delimiter="\t" if path.endswith(".tsv") else ",")
         for row in reader:
             tag = row.get("tag")

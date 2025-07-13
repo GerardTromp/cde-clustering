@@ -7,7 +7,7 @@ from typing import Any, Type, List, Optional, Dict, Union
 
 def save_raw_json(model, base_filename, idx):
     raw_filename = f"{base_filename}_raw_{idx+1}.json"
-    with open(raw_filename, "w") as raw_file:
+    with open(raw_filename, "w", encoding="utf-8", newline="") as raw_file:
         json.dump(model.dict(), raw_file, indent=2)
     print(f"Raw JSON saved to {raw_filename}")
 
@@ -30,7 +30,7 @@ def export_results(results, output_format, filename):
         )
         print(f"Results exported to {filename} in CSV format.")
     elif output_format == "json":
-        with open(filename, "w") as f:
+        with open(filename, "w", encoding="utf-8", newline="") as f:
             json.dump(results, f, indent=2)
         print(f"Results exported to {filename} in JSON format.")
     else:
@@ -40,7 +40,7 @@ def export_results(results, output_format, filename):
 def export_to_csv(data_list: list, file_path: str):
     if not data_list:
         return
-    with open(file_path, mode="w", newline="") as csvfile:
+    with open(file_path, mode="w", encoding="utf-8", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(data_list[0].keys())
         for row in data_list:
@@ -53,7 +53,7 @@ def concatenate_values(data_list: list, delimiter: str = ", ") -> str:
 
 ## This is not quite right
 def load_json_model(file_path: str) -> List[CDEItem]:
-    with open(file_path, "r") as f:
+    with open(file_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return list(CDEItem)  # type: ignore
 

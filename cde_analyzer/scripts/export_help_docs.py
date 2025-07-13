@@ -50,7 +50,7 @@ def get_write_help(name, parser: argparse.ArgumentParser, format, output_dir):
     help_text = extract_action_help(parser)
     formatted = format_help(name, help_text, format)
     filename = os.path.join(output_dir, f"{name}.{format}")
-    with open(filename, "w", encoding="utf-8") as f:
+    with open(filename, "w", encoding="utf-8", newline="") as f:
         f.write(formatted)
     return formatted, filename
 
@@ -85,7 +85,7 @@ def export_all_help_docs(
 
     if combine and format == "markdown":
         cheat_file = os.path.join(output_dir, "all-commands.md")
-        with open(cheat_file, "w", encoding="utf-8") as f:
+        with open(cheat_file, "w", encoding="utf-8", newline="") as f:
             f.write("# CDE Analyzer CLI Cheat Sheet\n\n")
             f.write("\n\n---\n\n".join(combined_sections))
         print(f"📚 Wrote combined cheat sheet to {cheat_file}")

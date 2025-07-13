@@ -99,14 +99,14 @@ def run_action(args):
     if output_path:
         if output_flat:
             flattened = flatten_nested_dict(results)
-            with open(output_path, "w") as f:
+            with open(output_path, "w", newline="") as f:
                 json.dump(flattened, f, indent=2)
         elif output_path.endswith(".csv"):
             export_results_csv(results, output_path, group_by or "group")
         elif output_path.endswith(".tsv"):
             export_results_tsv(results, output_path, group_by or "group")
         else:
-            with open(output_path, "w") as f:
+            with open(output_path, "w", newline="") as f:
                 json.dump(results, f, indent=2)
 
     phrase_write_output(results, format=args.output_format, out_path=args.output)

@@ -53,5 +53,5 @@ def print_json_diff(
         print("\n".join(diff))
 
     if output_file:
-        with open(output_file, "w", encoding="utf-8") as f:
+        with open(output_file, "w", encoding="utf-8", newline="") as f:
             f.write("\n".join(diff))

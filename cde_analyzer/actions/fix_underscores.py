@@ -62,7 +62,7 @@ def run_action(args: Namespace):
 
     if args.output:
         logger.info(f"Writing output to {args.output}")
-        with open(args.output, "w", encoding="utf-8") as f:
+        with open(args.output, "w", encoding="utf-8", newline="") as f:
             json.dump(fixed, f, indent=2)
     else:
         print(json.dumps(fixed, indent=2))

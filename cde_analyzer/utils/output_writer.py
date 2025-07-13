@@ -24,7 +24,7 @@ def phrase_write_output(data, format="json", out_path=None):
         raise ValueError("Unsupported output format")
 
     if out_path:
-        with open(out_path, "w", encoding="utf-8") as f:
+        with open(out_path, "w", encoding="utf-8", newline="") as f:
             f.write(output)
     else:
         print(output)

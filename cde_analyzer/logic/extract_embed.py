@@ -94,12 +94,12 @@ def extract_path(
         with open(output, "w") as f:
             json.dump(rows, f, indent=2)
     elif format == "csv":
-        with open(output, "w", newline="") as f:
+        with open(output, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=rows[0].keys())
             writer.writeheader()
             writer.writerows(rows)
     elif format == "tsv":
-        with open(output, "w", newline="") as f:
+        with open(output, "w", encoding="utf-8", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=rows[0].keys(), delimiter="\t")
             writer.writeheader()
             writer.writerows(rows)
