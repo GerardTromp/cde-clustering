@@ -92,7 +92,7 @@ def run_action(args):
         char_limit=args.char_limit,
     )
     # define shorter vars to avoid using arg.* in many places
-    output_path = args.output_path
+    output_path = args.output
     output_flat = args.output_flat
     group_by = args.group_by
 

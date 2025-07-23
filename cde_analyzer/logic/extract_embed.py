@@ -14,6 +14,7 @@ from utils.path_utils import (
     get_path_value,
     permis_values_to_dict_list,
 )
+from utils.designation_parser import extract_name_and_question_from_designations
 from utils.logger import log_if_verbose
 from utils.analyzer_state import get_verbosity, set_verbosity
 from CDE_Schema import CDEItem, CDEForm
@@ -39,6 +40,7 @@ def extract_path(
     if collapse:
         none_pat = re.compile(r"(?:None, )*None")
     log_if_verbose(f"[DEBUG] The list of tinyIds is: {tinyids}", 1)
+    qn = 0  # counter to skip subsequent designations in path
     if schema_path:
         schema = load_path_schema(schema_path)
         rows = []
@@ -50,7 +52,21 @@ def extract_path(
                     continue
             row: Dict[str, str] = {"tinyId": item.tinyId}  # type: ignore
 
+            # Here start iterating over the path_expr read in from file
+            #   Must add dynamic_tag with designations.*.designation
             for tag, path_expr in schema.items():
+                # Here we must test for "designations" in path, if yes, then check for existence of
+                # "tags" Must check that we are parsing CDE not Form
+                if (
+                    qn == 0
+                    and model_class == "CDE"
+                    and re.match("designations", path_expr)
+                ):
+                    result = extract_name_and_question_from_designations(item.get("designations"))  # type: ignore validate item
+                    qn += 1
+                    rows.append(result)
+                    continue
+
                 val = get_path_value(item.model_dump(), path_expr)
                 log_if_verbose(f"[extract_embed logic] Check tinyId: {item.tinyId}", 2)  # type: ignore
 
@@ -63,10 +79,15 @@ def extract_path(
                         log_if_verbose(log_message, 3)
                         vdict = {}
                         for vtag, vdata in val.items():
-                            log_message = f"[extract_embed logic]  collapsing permis vals -- vtag is: {vtag}, vdata is: {vdata}"
-                            log_if_verbose(log_message, 2)
+                            if collapse:
+                                log_message = f"[extract_embed logic]  collapsing permis vals -- vtag is: {vtag}, vdata is: {vdata}"
+                                log_if_verbose(log_message, 3)
+                                if isinstance(vdata, list):
+                                    vdata = [item for item in vdata if item is not None]
+                                    log_message = f"[extract_embed logic]  after collapsing -- vtag is: {vtag}, vdata is: {vdata}"
+                                    log_if_verbose(log_message, 3)
                             if isinstance(vdata, list):
-                                cstring = ";".join(str(v) for v in vdata)
+                                cstring = ";;".join(str(v) for v in vdata)
                                 vdict[vtag] = cstring
                         val = vdict
                     else:
