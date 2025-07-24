@@ -15,9 +15,14 @@ from utils.path_utils import (
 from utils.designation_parser import extract_name_and_question_from_designations
 from utils.logger import log_if_verbose
 from utils.analyzer_state import get_verbosity, set_verbosity
-from utils.extract_embed import simplify_permissible_values, normalize_extracted_value
-from CDE_Schema.CDE_Item import CDEItem
-from CDE_Schema.CDE_Form import CDEForm
+from utils.extract_embed import (
+    simplify_permissible_values,
+    normalize_extracted_value,
+    strip_json_list,
+)
+
+# from CDE_Schema.CDE_Item import CDEItem
+# from CDE_Schema.CDE_Form import CDEForm
 
 logger = logging.getLogger("cde_analyzer.extract_embed")
 ModelType = TypeVar("ModelType", bound=BaseModel)
@@ -69,9 +74,9 @@ def extract_path(
                             for d in getattr(item, "designations", []) or []
                         ]
                     )  # type: ignore
-                    qn += 1
-                    rows.append(result)
-                    continue
+                    # qn += 1
+                    row.update(result)  # type: ignore
+                    # continue
 
                 val = get_path_value(item.model_dump(), path_expr)
                 log_if_verbose(f"[extract_embed logic] Check tinyId: {item.tinyId}", 2)  # type: ignore
@@ -92,7 +97,7 @@ def extract_path(
                     )
                     simplified = simplify_permissible_values(val, collapse)
                     for key, collapsed_val in simplified.items():  # type: ignore
-                        row[f"{tag}.{key}"] = (
+                        row[f"{tag}.{key}"] = (  # type: ignore
                             collapsed_val if collapsed_val is not None else ""
                         )
                     continue
@@ -108,6 +113,8 @@ def extract_path(
         print(json.dumps(rows, indent=2))
         return
 
+    # clean up leading/trailing whitespace on some data values
+    rows = strip_json_list(rows)
     if format == "json":
         with open(output, "w") as f:
             json.dump(rows, f, indent=2)
