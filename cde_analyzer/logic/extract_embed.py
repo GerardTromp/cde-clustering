@@ -6,8 +6,6 @@ import re
 import logging
 from typing import List, Dict, Optional, Type, TypeVar
 from pydantic import BaseModel
-from CDE_Schema import CDEItem, PermissibleValue, CDEForm
-
 from utils.helpers import extract_embed_project_fields_by_tinyid
 from utils.path_utils import (
     load_path_schema,
@@ -17,7 +15,9 @@ from utils.path_utils import (
 from utils.designation_parser import extract_name_and_question_from_designations
 from utils.logger import log_if_verbose
 from utils.analyzer_state import get_verbosity, set_verbosity
-from CDE_Schema import CDEItem, CDEForm
+from utils.extract_embed import simplify_permissible_values, normalize_extracted_value
+from CDE_Schema.CDE_Item import CDEItem
+from CDE_Schema.CDE_Form import CDEForm
 
 logger = logging.getLogger("cde_analyzer.extract_embed")
 ModelType = TypeVar("ModelType", bound=BaseModel)
@@ -34,6 +34,7 @@ def extract_path(
     schema_path: Optional[str] = None,
     exclude: bool = False,
     collapse: bool = False,
+    simplify: bool = False,
 ):
     # model_class = MODEL_REGISTRY[args.model]
     items = [model_class.model_validate(obj) for obj in data]
@@ -59,48 +60,44 @@ def extract_path(
                 # "tags" Must check that we are parsing CDE not Form
                 if (
                     qn == 0
-                    and model_class == "CDE"
+                    and model_class.__name__ == "CDEItem"
                     and re.match("designations", path_expr)
                 ):
-                    result = extract_name_and_question_from_designations(item.get("designations"))  # type: ignore validate item
+                    result = extract_name_and_question_from_designations(
+                        [
+                            d.model_dump()
+                            for d in getattr(item, "designations", []) or []
+                        ]
+                    )  # type: ignore
                     qn += 1
                     rows.append(result)
                     continue
 
                 val = get_path_value(item.model_dump(), path_expr)
                 log_if_verbose(f"[extract_embed logic] Check tinyId: {item.tinyId}", 2)  # type: ignore
-
-                if isinstance(val, list):
-                    if all(isinstance(item, dict) for item in val):
-                        val = permis_values_to_dict_list(val)  # type: ignore -- we have checked
-                        log_message = (
-                            f"[extract_embed logic]  permissible vals -- val is: {val}"
+                # Here the even more complex simplification of permissibleValueSets.
+                #   The problem is that PVs can have permissibleValue (pv), valueMeaningDefinition (vmd) and
+                #   valueMeanningName (vmn). If values present (non-empty set), pv is defined, but vmd may or may not
+                #   be and vmn likewise. Heuristically, vmd is more valuable than vmn. Simplification should
+                #   return only two sets pv and either pvd or pvn.
+                if (
+                    path_expr.endswith("permissibleValues")
+                    and model_class.__name__ == "CDEItem"
+                    and collapse
+                    and simplify
+                ):
+                    log_if_verbose(
+                        f"[simplify call] passed all tests and calling simplify_permissible_values",
+                        3,
+                    )
+                    simplified = simplify_permissible_values(val, collapse)
+                    for key, collapsed_val in simplified.items():  # type: ignore
+                        row[f"{tag}.{key}"] = (
+                            collapsed_val if collapsed_val is not None else ""
                         )
-                        log_if_verbose(log_message, 3)
-                        vdict = {}
-                        for vtag, vdata in val.items():
-                            if collapse:
-                                log_message = f"[extract_embed logic]  collapsing permis vals -- vtag is: {vtag}, vdata is: {vdata}"
-                                log_if_verbose(log_message, 3)
-                                if isinstance(vdata, list):
-                                    vdata = [item for item in vdata if item is not None]
-                                    log_message = f"[extract_embed logic]  after collapsing -- vtag is: {vtag}, vdata is: {vdata}"
-                                    log_if_verbose(log_message, 3)
-                            if isinstance(vdata, list):
-                                cstring = ";;".join(str(v) for v in vdata)
-                                vdict[vtag] = cstring
-                        val = vdict
-                    else:
-                        val = ";".join(str(v) for v in val)
-                        log_message = (
-                            f"[extract_embed logic] Flattened [list] -- val is: {val}"
-                        )
-                        log_if_verbose(log_message, 3)
-                        # None is introduced during data dump
-                        # if collapse:
-                        #     val = re.sub(none_pat, "", val)
-                        #     log_message = f"[extract_embed logic] Flattened [list] after collapse -- val is: {val}"
-                        #     log_if_verbose(log_message, 3)
+                    continue
+                else:
+                    val = normalize_extracted_value(val, collapse=collapse)
 
                 row[tag] = val if val is not None else ""  # type: ignore
             rows.append(row)

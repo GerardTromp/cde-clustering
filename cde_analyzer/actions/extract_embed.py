@@ -53,7 +53,10 @@ def register_subparser(subparser: ArgumentParser):
         "--id-type", default=str, help="The type of ID (default=tinyId)."
     )
     subparser.add_argument(
-        "--output", default=str, help="Path, including filename, to store results."
+        "-o",
+        "--output",
+        default=str,
+        help="Path, including filename, to store results.",
     )
     subparser.add_argument(
         "-m",
@@ -75,10 +78,18 @@ def register_subparser(subparser: ArgumentParser):
         help="Exclude (--exclude) or include (--no-exclude) IDs in list.",
     )
     subparser.add_argument(
+        "-c",
         "--collapse",
         action=BooleanOptionalAction,
         default=True,
         help='Collapse repeated "None;" in list items.',
+    )
+    subparser.add_argument(
+        "-s",
+        "--simplify-permissible",
+        action=BooleanOptionalAction,
+        default=True,
+        help="Process limited set of permissibleValues fields using heuristic.",
     )
     subparser.set_defaults(func=run_action)
 
@@ -117,4 +128,5 @@ def run_action(args):
         args.path_file,
         args.exclude,
         args.collapse,
+        args.simplify_permissible,
     )
