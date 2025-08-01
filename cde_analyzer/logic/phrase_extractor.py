@@ -18,6 +18,7 @@ nltk.download("punkt_tab", quiet=True)
 nltk.download("wordnet", quiet=True)
 nltk.download("stopwords", quiet=True)
 nltk.download("averaged_perceptron_tagger_eng", quiet=True)
+nltk.download("omw-1.4", quiet=True)
 
 # Global resources
 STOPWORDS = set(stopwords.words("english"))
@@ -27,10 +28,11 @@ lemmatizer = WordNetLemmatizer()
 PhraseMap = DefaultDict[str, DefaultDict[str, Set[str]]]
 NestedDict: TypeAlias = Dict[str, Union[List, "NestedDict"]]
 
-logger = logging.getLogger("cde_analyzer.phrase")
+# logger = logging.getLogger("cde_analyzer.phrase")
+logger = logging.getLogger(__name__)
 
 
-def get_wordnet_pos(tag: str) -> str:
+def get_wordnet_pos(tag: str) -> Union[str, None]:
     """Map POS tag to format WordNetLemmatizer accepts."""
     if tag.startswith("J"):
         return wordnet.ADJ
@@ -40,7 +42,7 @@ def get_wordnet_pos(tag: str) -> str:
         return wordnet.NOUN
     elif tag.startswith("R"):
         return wordnet.ADV
-    return wordnet.NOUN  # default to noun
+    return None  # do not convert POS-less word
 
 
 def extract_phrases(
@@ -52,14 +54,23 @@ def extract_phrases(
 
     # Filter out non-alphanumeric before POS tagging
     tokens = [w for w in tokens if w.isalnum()]
+    if not tokens:
+        log_if_verbose(f"[POS] Skipped empty token list: {repr(text)}", 3)
+        return []
 
     if lemmatize:
         pos_tags = pos_tag(tokens)
-        log_if_verbose(f"[POS] tags: {pos_tags}", 3)
+        log_if_verbose(f"[POS] tokens: {tokens}", 3)
+        log_if_verbose(f"[POS] pos_tags: {pos_tags}", 3)
 
-        words = [
-            lemmatizer.lemmatize(word, get_wordnet_pos(pos)) for word, pos in pos_tags
-        ]
+        words = []
+        for word, pos in pos_tags:
+            wn_pos = get_wordnet_pos(pos)
+            if wn_pos:
+                lemma = lemmatizer.lemmatize(word, pos=wn_pos)
+            else:
+                lemma = word
+            words.append(lemma)
     else:
         words = tokens
 
@@ -68,6 +79,10 @@ def extract_phrases(
     if remove_stopwords:
         words = [w for w in words if w not in STOPWORDS]
         log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
+
+    log_if_verbose(
+        f"[POS] Just before phrase collection. length words: {len(words)}", 3
+    )
 
     phrases = []
     for size in range(min_words, len(words) + 1):
@@ -136,9 +151,6 @@ def collect_phrases_from_item(
                 for phrase in phrases:
                     log_if_verbose(f"  - {phrase}")
 
-            #  rename value to ensure readability of code below
-            # verbatim_phrase = value
-
             for phrase in phrases:
                 results[new_path][phrase].add(tiny_id)
                 verbatim_results[new_path][phrase].add(value)
@@ -180,7 +192,7 @@ def collect_all_phrase_occurrences(
     min_words: int = 2,
     remove_stopwords: bool = True,
     min_ids: int = 2,
-    prune_subphrases: bool = True,
+    prune: str = "none",
     lemmatize: bool = True,
     verbatim: bool = False,
 ) -> Dict[str, Dict[str, List[str]]]:
@@ -215,8 +227,10 @@ def collect_all_phrase_occurrences(
     else:
         output: Dict[str, Dict[str, List[str]]] = {}
     for path, phrase_map in final_result.items():
-        if prune_subphrases:
+        if prune == "tinyid":
             phrase_map = prune_subphrases_by_tinyid(phrase_map)
+        if prune == "global":
+            phrase_map = prune_subphrases_global(phrase_map)
 
         filtered = {
             phrase: sorted(list(ids))
@@ -287,3 +301,37 @@ def prune_subphrases_by_tinyid(phrase_map: Dict[str, Set[str]]) -> Dict[str, Set
         collapsed_map[phrase].update(ids)
 
     return collapsed_map
+
+
+def prune_subphrases_global(phrase_map: Dict[str, Set[str]]) -> Dict[str, Set[str]]:
+    """
+    Collapse shorter phrases globally if they are substrings of longer phrases.
+    Retains only globally longest (non-sub)phrases.
+    """
+    all_phrases = list(phrase_map.keys())
+
+    # Sort phrases by descending word count, then lexically
+    sorted_phrases = sorted(all_phrases, key=lambda p: (-len(p.split()), p))
+
+    kept_phrases = set()
+    for p in sorted_phrases:
+        if not any(p in longer and p != longer for longer in kept_phrases):
+            kept_phrases.add(p)
+
+    # Rebuild phrase map using only retained phrases
+    collapsed_map: Dict[str, Set[str]] = {
+        phrase: phrase_map[phrase] for phrase in kept_phrases
+    }
+
+    return collapsed_map
+
+
+def prune_subphrases(
+    phrase_map: Dict[str, Set[str]], scope: str = "tinyid"
+) -> Dict[str, Set[str]]:
+    if scope == "tinyid":
+        return prune_subphrases_by_tinyid(phrase_map)
+    elif scope == "global":
+        return prune_subphrases_global(phrase_map)
+    else:
+        raise ValueError("Invalid scope: choose 'tinyid' or 'global'")

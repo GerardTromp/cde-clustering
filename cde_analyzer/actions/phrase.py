@@ -17,9 +17,13 @@ logger = logging.getLogger(__name__)
 
 
 def register_subparser(subparser: ArgumentParser):
-    subparser.add_argument("--input", help="Input JSON file")
+    subparser.add_argument("--input", "-i", help="Input JSON file")
     subparser.add_argument(
-        "--fields", nargs="+", required=True, help="Field names from pydantic classes"
+        "--fields",
+        "-f",
+        nargs="+",
+        required=True,
+        help="Field names from pydantic classes",
     )
     subparser.add_argument(
         "--min-words",
@@ -40,14 +44,32 @@ def register_subparser(subparser: ArgumentParser):
     )
     subparser.add_argument(
         "--lemmatize",
+        "-l",
         action=argparse.BooleanOptionalAction,
         default=True,
         help="Convert the text to standardized (lemma) form so that similar phrases match?",
     )
+    # prune_group = subparser.add_mutually_exclusive_group()
+    # prune_group.add_argument(
+    #     "--prune-by-tinyid",
+    #     action="store_true",
+    #     help="Keep only longest phrases per tinyId",
+    # )
+    # prune_group.add_argument(
+    #     "--prune-global", action="store_true", help="Keep only globally longest phrases"
+    # )
+    # subparser.add_argument(
+    #     "--prune-subphrases",
+    #     action="store_true",
+    #     help="Collect longest shared phrases?",
+    # )
     subparser.add_argument(
-        "--prune-subphrases",
-        action="store_true",
-        help="Collect longest shared phrases?",
+        "--prune",
+        "-p",
+        type=str,
+        choices=["none", "tinyid", "global"],
+        default="none",
+        help="Collect longeset shared phrases. No, by tinyId, or globally",
     )
     subparser.add_argument(
         "--output-format",
@@ -56,7 +78,7 @@ def register_subparser(subparser: ArgumentParser):
         help="Choose output format",
     )
     subparser.add_argument(
-        "--output", help="Path, including filename, to store results."
+        "--output", "-o", help="Path, including filename, to store results."
     )
     subparser.add_argument(
         "--verbatim",
@@ -80,7 +102,7 @@ def run_action(args: Namespace):
         remove_stopwords=args.remove_stopwords,
         min_ids=args.min_ids,
         verbosity=verbosity,
-        prune_subphrases=args.prune_subphrases,
+        prune=args.prune,
         lemmatize=args.lemmatize,
         verbatim=args.verbatim,
     )

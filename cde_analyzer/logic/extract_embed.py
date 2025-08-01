@@ -19,6 +19,8 @@ from utils.extract_embed import (
     simplify_permissible_values,
     normalize_extracted_value,
     strip_json_list,
+    strip_embedded_nl,
+    sanitize,
 )
 
 # from CDE_Schema.CDE_Item import CDEItem
@@ -43,8 +45,6 @@ def extract_path(
 ):
     # model_class = MODEL_REGISTRY[args.model]
     items = [model_class.model_validate(obj) for obj in data]
-    if collapse:
-        none_pat = re.compile(r"(?:None, )*None")
     log_if_verbose(f"[DEBUG] The list of tinyIds is: {tinyids}", 1)
     qn = 0  # counter to skip subsequent designations in path
     if schema_path:
@@ -75,6 +75,13 @@ def extract_path(
                         ]
                     )  # type: ignore
                     # qn += 1
+                    if isinstance(result, dict):
+                        result = {k: sanitize(v) for k, v in result.items()}
+                    elif isinstance(result, list):
+                        result = [
+                            {k: sanitize(v) for k, v in d.items()} for d in result  # type: ignore
+                        ]
+
                     row.update(result)  # type: ignore
                     # continue
 
