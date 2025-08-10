@@ -4,19 +4,26 @@
 import unicodedata
 import warnings
 import logging
+import re
 import json
 from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning  # type: ignore
 from pydantic import BaseModel
 from typing import Any, Type, List, Optional, Dict, Union
 from utils.logger import log_if_verbose
 from utils.analyzer_state import get_verbosity
+from utils.unicode import normalize_unicode
 
 logger = logging.getLogger("cde_analyzer.strip")
 verbosity = get_verbosity()
 
 
 def normalize_string(text: str) -> str:
-    return unicodedata.normalize("NFC", text).strip().lower()
+    # Original has .lower() but we want to maintain case
+    # return unicodedata.normalize("NFC", text).strip().lower()
+    text = unicodedata.normalize("NFC", text).strip()
+    text = normalize_unicode(text)
+    text = re.sub(r"\s+", " ", text)
+    return text
 
 
 def strip_html(text: str) -> str:
@@ -25,7 +32,9 @@ def strip_html(text: str) -> str:
     #    print(f"stripping html: {text}")
     warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
     soup = BeautifulSoup(text, "html.parser")
-    return soup.get_text()
+    mtext = soup.get_text(separator=" ")
+    mtext = normalize_string(mtext)
+    return mtext
 
 
 def clean_text_values(obj: Any, set_keys, tables: bool, colnames: bool) -> Any:
@@ -133,4 +142,7 @@ def process_html_blob(html_string, header_col: bool):
 
     else:
         # If no tables are found, extract plain text
-        return soup.get_text(strip=True)  # Extract text and strip whitespace
+        mtext = soup.get_text(separator=" ")
+        mtext = re.sub(r"\s+", " ", mtext).strip()
+        return mtext
+        # return soup.get_text(strip=True)  # Extract text and strip whitespace
