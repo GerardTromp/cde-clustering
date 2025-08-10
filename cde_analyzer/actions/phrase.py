@@ -67,7 +67,7 @@ def register_subparser(subparser: ArgumentParser):
         "--prune",
         "-p",
         type=str,
-        choices=["none", "tinyid", "global"],
+        choices=["none", "tinyid", "global", "threshold"],
         default="none",
         help="Collect longeset shared phrases. No, by tinyId, or globally",
     )
