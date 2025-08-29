@@ -8,6 +8,7 @@ from actions import (
     fix_underscores,
     strip_html,
     strip_phrases,
+    lemma_fasta,
 )
 from utils.logger import configure_logging
 from utils.helpers import which_r, get_state, set_state
@@ -21,6 +22,7 @@ ACTIONS = {
     "extract_embed": extract_embed,
     "fix_underscores": fix_underscores,
     "strip_phrases": strip_phrases,
+    "lemma_fasta": lemma_fasta,
     #    "depth": depth.run_action,
     #    "quality": quality.run_action,
 }
