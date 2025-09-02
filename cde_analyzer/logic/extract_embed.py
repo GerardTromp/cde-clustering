@@ -4,7 +4,7 @@ import csv
 import pydantic
 import re
 import logging
-from typing import List, Dict, Optional, Type, TypeVar
+from typing import List, Dict, Optional, Type, TypeVar, Union
 from pydantic import BaseModel
 from utils.helpers import extract_embed_project_fields_by_tinyid
 from utils.path_utils import (
@@ -22,11 +22,12 @@ from utils.extract_embed import (
     strip_embedded_nl,
     sanitize,
 )
+# from logic.lemma_fasta import encode_pfasta
 
 # from CDE_Schema.CDE_Item import CDEItem
 # from CDE_Schema.CDE_Form import CDEForm
 
-logger = logging.getLogger("cde_analyzer.extract_embed")
+logger = logging.getLogger(__name__)
 ModelType = TypeVar("ModelType", bound=BaseModel)
 
 
@@ -42,7 +43,8 @@ def extract_path(
     exclude: bool = False,
     collapse: bool = False,
     simplify: bool = False,
-):
+    remove_stopwords: bool = False,
+) -> Union[None, List[Dict]]:
     # model_class = MODEL_REGISTRY[args.model]
     items = [model_class.model_validate(obj) for obj in data]
     log_if_verbose(f"[DEBUG] The list of tinyIds is: {tinyids}", 1)
@@ -115,13 +117,16 @@ def extract_path(
             rows.append(row)
     else:
         rows = extract_embed_project_fields_by_tinyid(data, tinyids, exclude)
+    
+    rows = strip_json_list(rows)
+    if format == "pfasta":
+        return rows # type: ignore
 
     if not output:
         print(json.dumps(rows, indent=2))
         return
 
     # clean up leading/trailing whitespace on some data values
-    rows = strip_json_list(rows)
     if format == "json":
         with open(output, "w") as f:
             json.dump(rows, f, indent=2)
@@ -135,5 +140,7 @@ def extract_path(
             writer = csv.DictWriter(f, fieldnames=rows[0].keys(), delimiter="\t")
             writer.writeheader()
             writer.writerows(rows)
+    # elif format == "pfasta":
+    #     rows = encode_pfasta(rows, schema, remove_stopwords)
     else:
         raise ValueError(f"Unsupported output format: {format}")

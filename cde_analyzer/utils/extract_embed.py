@@ -9,6 +9,7 @@ DOS_NL = re.compile(r"\r\n")
 MAC_NL = re.compile(r"\r")
 MULTI_NL = re.compile(r"\n\n*")
 MULTI_SPACE = re.compile(r" {2,}")
+NUM_LIST = re.compile(r"(?:\d+;; )+")
 
 
 def strip_embedded_nl(text: str) -> Union[str, None]:
@@ -79,6 +80,16 @@ def simplify_permissible_values(
         # Drop secondary if it's equal to permissibleValue
         if pv_str == secondary_str:
             secondary_str = ""
+
+        # Filter out sets that have numerical listing
+        # Heuristic since tabulaton shows only two sets that match the regex contain 
+        # char strings, remainder are all variations of consecutive numbers
+        #  1 - Not at all;; 2;; 3;; 4;; 5 - very well
+        #  0 - absent;; 0.5;; 1 - mild;; 1.5;; 2 - moderate;; 2.5;; 3 - severe
+        if NUM_LIST.search(str(pv_str)):
+            pv_str = ""
+        if NUM_LIST.search(str(secondary_str)):
+           secondary_str = ""
 
         # secondary str sometimes becomes some multiple of double semi-colons
         # ';;;;;;'. Add filter to avoid multiple empty strings in list

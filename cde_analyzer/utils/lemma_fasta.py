@@ -1,225 +1,193 @@
-import nltk
-import spacy
-import functools
-from collections import Counter
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-from nltk.corpus import stopwords
-from nltk.tag import pos_tag
-from nltk import word_tokenize, pos_tag
-from nltk.corpus import wordnet
-from collections import defaultdict
+import base64
+import sys
+import struct
 from typing import Any, Dict, List, Set, Optional, DefaultDict, Tuple, Union, TypeAlias
+from collections import Counter
 from utils.logger import log_if_verbose
+from utils.phrase_extraction import make_lemma, rm_stopwords, word_tokenize
 
-# Download resources quietly
-nltk.download("punkt", quiet=True)
-nltk.download("punkt_tab", quiet=True)
-nltk.download("wordnet", quiet=True)
-nltk.download("stopwords", quiet=True)
-nltk.download("averaged_perceptron_tagger_eng", quiet=True)
-nltk.download("omw-1.4", quiet=True)
+system_endianness = sys.byteorder
+if system_endianness == "little":
+    byte_order = "<"
+elif system_endianness == "big":
+    byte_order = ">"
 
-# Global resources
-STOPWORDS = set(stopwords.words("english"))
-lemmatizer = WordNetLemmatizer()
-_spacy_initialized = False
-
-# Type alias for clarity
-PhraseMap = DefaultDict[str, DefaultDict[str, Set[str]]]
-NestedDict: TypeAlias = Dict[str, Union[List, "NestedDict"]]
-
-
-def get_wordnet_pos(tag: str) -> Union[str, None]:
-    """Map POS tag to format WordNetLemmatizer accepts."""
-    if tag.startswith("J"):
-        return wordnet.ADJ
-    elif tag.startswith("V"):
-        return wordnet.VERB
-    elif tag.startswith("N"):
-        return wordnet.NOUN
-    elif tag.startswith("R"):
-        return wordnet.ADV
-    return None  # do not convert POS-less word
-
-
-def lemmatize(
-    text: str, remove_stopwords: bool, verbosity: int
-) -> List[str]:
-    log_if_verbose(f"[TOKENIZE] raw: {repr(text)}", 3)
-    tokens = word_tokenize(text.lower())
-    log_if_verbose(f"[TOKENIZE] tokens: {tokens}", 3)
-
-    # Filter out non-alphanumeric before POS tagging
-    tokens = [w for w in tokens if w.isalnum()]
-    if not tokens:
-        log_if_verbose(f"[POS] Skipped empty token list: {repr(text)}", 3)
-        return []
-
+def gen_vocab(rows: List[Dict]) -> Dict:
+    '''
+    Convert the content fields of each dictionary in a list of dictionaries to
+    a counter of tokens (words). Each dict is {tinyID: xxx, content_fields: tokens}
+    '''
+    # vocab: List[Tuple[str,int]]
+    vocab_list = Counter()
+    for obj in rows:
+        for k in obj.keys():
+            if k == "tinyId":
+                continue
+            else:
+                vocab_list.update(Counter(obj[k]))
     
-    pos_tags = pos_tag(tokens)
-    log_if_verbose(f"[POS] tokens: {tokens}", 3)
-    log_if_verbose(f"[POS] pos_tags: {pos_tags}", 3)
-
-    words = []
-    for word, pos in pos_tags:
-        wn_pos = get_wordnet_pos(pos)
-        if wn_pos:
-            lemma = lemmatizer.lemmatize(word, pos=wn_pos)
+    # Sort descending by frequency, then alphabetically.
+    vocab_list = sorted(vocab_list.items(), key=lambda item: (-item[1], item[0]))
+    
+    # Convert to dict with the value the rank order starting with 1,
+    #    leaving 0 (0x00) to be the bitbucket for discarded or low-frequency words
+    vocab = {}
+    counter = 0
+    for item in vocab_list: # type: ignore  pylance is wrong Counter is iterable
+        # 
+        if counter > 32000:
+            counter = 0
         else:
-            lemma = word
-        words.append(lemma)
-
-    log_if_verbose(f"[CLEANED] lemmas: {words}", 3)
-
-    if remove_stopwords:
-        words = [w for w in words if w not in STOPWORDS]
-        log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
-
-    log_if_verbose(
-        f"[POS] Number of words: {len(words)}", 3
-    )
-
-    return words
-
-
-def collect_lemmas_from_item(
-    item: Any,
-    field_names: Set[str],
-    tiny_id: str,
-    current_path: str = "",
-    results: Optional[PhraseMap] = None,
-    verbatim_results: Optional[PhraseMap] = None,
-    remove_stopwords: bool = True,
-    verbosity: int = 0,
-    verbatim: bool = False,
-) -> Tuple[PhraseMap, PhraseMap]:
-    """Recursively walk the object and collect phrases from fields matching field_names."""
-    if results is None:
-        results = defaultdict(lambda: defaultdict(set))
-    if verbatim_results is None:
-        verbatim_results = defaultdict(lambda: defaultdict(set))
-
-    #    print("descended into collect phrases from item")
-    if isinstance(item, dict):
-        iterator = item.items()
-    elif hasattr(item, "__dict__"):
-        iterator = vars(item).items()
-    elif isinstance(item, list):
-        for elem in item:
-            collect_lemmas_from_item(
-                elem,
-                field_names,
-                tiny_id,
-                current_path + ".*" if current_path else "*",
-                results,
-                verbatim_results,
-                remove_stopwords,
-                verbosity,
-                verbatim,
-            )
-        return results, verbatim_results
-    else:
-        return results, verbatim_results
-
-    for key, value in iterator:
-        new_path = f"{current_path}.{key}" if current_path else key
-
-        if key in field_names and isinstance(value, str):
-            log_message = f"[MATCH] {new_path}"
-            log_if_verbose(log_message, 2)
-            phrases = lemmatize(
-                value, remove_stopwords, verbosity
-            )
-            # No need to use log_if_verbose here. Want to ONLY execute if logger desired
-            if verbosity >= 3:
-                log_if_verbose(f"         value: {repr(value)}")
-                log_if_verbose(f"[PHRASES] Extracted from {new_path}:")
-                for phrase in phrases:
-                    log_if_verbose(f"  - {phrase}")
-
-            for phrase in phrases:
-                results[new_path][phrase].add(tiny_id)
-                verbatim_results[new_path][phrase].add(value)
-
-        elif isinstance(value, list):
-            for elem in value:
-                collect_lemmas_from_item(
-                    elem,
-                    field_names,
-                    tiny_id,
-                    new_path + ".*",
-                    results,
-                    verbatim_results,
-                    remove_stopwords,
-                    verbosity,
-                )
-
-        elif hasattr(value, "__dict__") or isinstance(value, dict):
-            collect_lemmas_from_item(
-                value,
-                field_names,
-                tiny_id,
-                new_path,
-                results,
-                verbatim_results,
-                remove_stopwords,
-                verbosity,
-            )
-
-    return results, verbatim_results
-
-
-def initalize_spacy(setup_func):
-    """
-    A decorator to ensure a setup function is called before the decorated function.
-    The setup function is called only once per decorated function.
-    """
-    spacy_initialized = False
-
-    @functools.wraps(setup_func)
-    def wrapper(*args, **kwargs):
-        nonlocal spacy_initialized
-        if not spacy_initialized:
-            setup_func()
-            spacy_initialized = True
-        return setup_func(*args, **kwargs)
-    return wrapper
-
-
-def _initialize_spacy():
-    global nlp
-    nlp = spacy.load("en_core_web_sm", disable=["ner","parser"])
-
-@initalize_spacy(_initialize_spacy)
-
-# def vocab_decorator(func):
-#     def wrapper(*args, **kwargs):
-#         _initialize_spacy()
-#         result = func(*args, **kwargs)
-#         return result
-#     return wrapper
-
-# def build_vocab(docs, max_vocab=32000):
-#     _initialize_spacy()  # Ensure initialization before use
-#     _build_vocab(docs, max_vocab)
+            counter += 1
+        key, value = item
+        my_dict = {}
+        if key not in vocab:
+            my_dict["encode"] = counter
+            my_dict["freq"] = value
+            vocab[key] = my_dict
+        #     vocab[key] = []  # Initialize an empty list if key is new
+        # vocab[key].append(value) 
+        else:
+            print(f"****************************\n[ERROR] This should not happen: duplicate entry in `vocab`for key: {key}\n*****************************" )
+        freq = vocab[key]["freq"]
+        log_msg =f"Count of key {key:>35}:\t{freq:6d}"
+        log_if_verbose(log_msg, 4)
+        
+               
     
-# @vocab_decorator
-def build_vocab(docs, max_vocab):
-    all_tokens = []
-    for doc in docs:
-        lemmas = [t.lemma_.lower() for t in nlp(doc) if t.is_alpha and len(t) > 2]
-        all_tokens.extend(lemmas)
-    freq = Counter(all_tokens)
-    vocab = {w: i+1 for i, (w, _) in enumerate(freq.most_common(max_vocab))}
     return vocab
 
 
-def encode_doc(doc, vocab):
-    return [vocab.get(t.lemma_.lower(), 0) for t in nlp(doc) if t.is_alpha]
+def enc_vocab(rows: List[Dict], vocab: Dict):
+    """
+    enc_vocab: encode data fields into uint16 based on frequency
+
+    Args:
+        rows (List[Dict]): List of dictionary, each an abstract
+            of a CDE. Usually Name, Question, Definition 
+            and Permissible Values
+        vocab (Dict): Dictionary of the most common words and a 
+            corresponding uint16 value
+    Return value: List(Dict): The dictionary with data fields encoded
+        as uint16_t
+    """
+    ret_rows =[]
+    for obj in rows:
+        ret_obj = {}
+        for key, value in obj.items():
+            if key == "tinyId":
+                ret_obj[key] = obj[key]
+                continue
+            else:
+                # for token in value:
+                #     uint_word = vocab[token]
+                ret_value = [vocab[token]['encode'] for token in value]
+                ret_obj[key] = ret_value
+                
+        ret_rows.append(ret_obj)
+    
+    return ret_rows
+    
+    
+    
+def lemma_data(rows: List[Dict], remove_stopwords: bool) -> List[Dict]:
+    """
+    lemma_data: lemmatize the data fields (all but tinyId), if remove_stopwords, then
+         apply the nltk removal of stopwords
+    Args:
+        rows (List[Dict]): List of dictionary, each an abstract of a 
+            CDE. Usually Name, Question, Definition and Permissible Values.
+        remove_stopwords (bool): flag to determine if stopwords should 
+            be removed.
+    Return value: 
+        List(Dict): The data fields are _lists_ of lemmatized words. These
+            need to be 'join'-ed to reconstitute the text string. Since the 
+            next step is usually enc_vocab, lists of lemmatized tokens is 
+            more useful.
+    """ 
+    ret_rows = []   
+    for  obj in rows:
+        for key in obj.keys():
+            if key == "tinyId":
+                my_id =  key
+                continue
+            else:
+                value = obj[key]
+                tokens = word_tokenize(value.lower())
+                value = make_lemma(tokens, remove_stopwords)
+                if remove_stopwords:
+                    value = rm_stopwords(value)
+            obj[key] = value
+            log_msg = f"[LEMMA DATA] tinyId: {my_id}, key {key:<20}, value: value"
+            log_if_verbose(log_msg, 3)
+        ret_rows.append(obj)
+    
+    return ret_rows 
+
+def enc_base85(rows: List[Dict]) -> List[Dict]:
+    """Encode the data components in base85
+
+    Args:
+        rows (List[Dict]): List of simplified CDE with
+            payloads encoded as uint16 integers concatenated into 
+            a single key:val pair
+
+    Returns:
+        List[Dict]: List of simplified CDE dicts with payloads 
+            (uint16 data strings) encoded in base85
+            
+    Note: Must be on concatenated uint16. Cannot concatenate b85 
+        payloads
+    """
+    ret_rows = []
+    for obj in rows:
+        ret_obj = {}
+        for key, value in obj.items():
+            if key == "tinyId":
+                ret_obj[key] = obj[key]
+                my_id = obj[key]
+                continue
+            else:
+                log_msg = f"[ENC_B85] ID: {my_id}, KEY: {key}, VALUE: {value}"
+                log_if_verbose(log_msg, 4)
+                format_str = byte_order + "{}H".format(len(value))
+                packed_value = struct.pack(format_str, *value)
+                value = base64.b85encode(packed_value)
+                # Since all subsequent use requires a regular string, decode here
+                ret_obj[key] = value.decode('utf-8')
+                log_msg = f"[ENC_B85] ID: {my_id}, KEY: {key}, VALUE: {value}"
+                log_if_verbose(log_msg, 4)
+        
+        ret_rows.append(ret_obj)
+    
+    return ret_rows
 
 
-# # Example usage
-# docs = ["History of breast cancer", "Family history of cancer"]
-# vocab = build_vocab(docs)
-# encoded = [encode_doc(d, vocab) for d in docs]
+def append_dict_values(rows: List[Dict]) -> List[Dict]:
+    """Concatenate all values but tinyId into a single string
+
+    Args:
+        rows (List[Dict]): List of simplifed CDE dict that have
+            payload encoded as uint16  
+
+    Returns:
+        List[Dict]: _description_
+        
+    Note: This must precede b85 encoding 
+    """
+    ret_rows = []
+    for obj in rows:
+        ret_dict= {}
+        concat = []
+        for key, value in obj.items():
+            if key == "tinyId":
+                ret_dict[key] = obj[key]
+                continue
+            else:
+                # print(f"tinyId {ret_dict['tinyId']}, value: {value}")
+                concat.extend(value)
+        ret_dict["fasta_uint16"] =  concat
+        
+        ret_rows.append(ret_dict)
+    
+    return ret_rows

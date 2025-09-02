@@ -39,9 +39,46 @@ def get_wordnet_pos(tag: str) -> Union[str, None]:
     return None  # do not convert POS-less word
 
 
-def extract_phrases(
-    text: str, min_words: int, remove_stopwords: bool, lemmatize: bool, verbosity: int
+def make_lemma(
+    tokens: list, remove_stopwords: bool
 ) -> List[str]:
+    
+    pos_tags = pos_tag(tokens)
+    log_if_verbose(f"[POS] tokens: {tokens}", 3)
+    log_if_verbose(f"[POS] pos_tags: {pos_tags}", 3)
+
+    words = []
+    for word, pos in pos_tags:
+        wn_pos = get_wordnet_pos(pos)
+        if wn_pos:
+            lemma = lemmatizer.lemmatize(word, pos=wn_pos)
+        else:
+            lemma = word
+        words.append(lemma)
+
+    log_if_verbose(f"[CLEANED] lemmas: {words}", 3)
+    
+    return words
+
+
+def rm_stopwords(words: list) -> List:
+    words = [w for w in words if w not in STOPWORDS]
+    log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
+
+    log_if_verbose(
+        f"[POS] Number of words: {len(words)}", 3
+    )
+
+    return words
+
+def tokenize_text(text:str) -> List[str]:
+    '''Simple tokenization
+    
+    Args:
+        text (str): Some sentence or phrase.
+    Return:
+        list (str): separated alphanumeric tokens. 
+    '''
     log_if_verbose(f"[TOKENIZE] raw: {repr(text)}", 3)
     tokens = word_tokenize(text.lower())
     log_if_verbose(f"[TOKENIZE] tokens: {tokens}", 3)
@@ -51,28 +88,49 @@ def extract_phrases(
     if not tokens:
         log_if_verbose(f"[POS] Skipped empty token list: {repr(text)}", 3)
         return []
+    
+    return tokens
+ 
+    
+def extract_phrases(
+    text: str, min_words: int, remove_stopwords: bool, lemmatize: bool
+) -> List[str]:
+    # log_if_verbose(f"[TOKENIZE] raw: {repr(text)}", 3)
+    # tokens = word_tokenize(text.lower())
+    # log_if_verbose(f"[TOKENIZE] tokens: {tokens}", 3)
+
+    # # Filter out non-alphanumeric before POS tagging
+    # tokens = [w for w in tokens if w.isalnum()]
+    # if not tokens:
+    #     log_if_verbose(f"[POS] Skipped empty token list: {repr(text)}", 3)
+    #     return []
+    tokens = tokenize_text(text)
 
     if lemmatize:
-        pos_tags = pos_tag(tokens)
-        log_if_verbose(f"[POS] tokens: {tokens}", 3)
-        log_if_verbose(f"[POS] pos_tags: {pos_tags}", 3)
+        words = make_lemma(tokens=tokens, remove_stopwords=remove_stopwords)
+        
+    #     pos_tags = pos_tag(tokens)
+    #     log_if_verbose(f"[POS] tokens: {tokens}", 3)
+    #     log_if_verbose(f"[POS] pos_tags: {pos_tags}", 3)
 
-        words = []
-        for word, pos in pos_tags:
-            wn_pos = get_wordnet_pos(pos)
-            if wn_pos:
-                lemma = lemmatizer.lemmatize(word, pos=wn_pos)
-            else:
-                lemma = word
-            words.append(lemma)
+    #     words = []
+    #     for word, pos in pos_tags:
+    #         wn_pos = get_wordnet_pos(pos)
+    #         if wn_pos:
+    #             lemma = lemmatizer.lemmatize(word, pos=wn_pos)
+    #         else:
+    #             lemma = word
+    #         words.append(lemma)
     else:
         words = tokens
+    
 
     log_if_verbose(f"[CLEANED] lemmas: {words}", 3)
 
     if remove_stopwords:
-        words = [w for w in words if w not in STOPWORDS]
-        log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
+        words = rm_stopwords(words)
+    #     words = [w for w in words if w not in STOPWORDS]
+    #     log_if_verbose(f"[CLEANED] without stopwords: {words}", 3)
 
     log_if_verbose(
         f"[POS] Just before phrase collection. length words: {len(words)}", 3
@@ -136,7 +194,7 @@ def collect_phrases_from_item(
             log_message = f"[MATCH] {new_path}"
             log_if_verbose(log_message, 2)
             phrases = extract_phrases(
-                value, min_words, remove_stopwords, lemmatize, verbosity
+                value, min_words, remove_stopwords, lemmatize
             )
             # No need to use log_if_verbose here. Want to ONLY execute if logger desired
             if verbosity >= 3:

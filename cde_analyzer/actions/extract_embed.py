@@ -24,7 +24,14 @@ MODEL_REGISTRY = {
 }
 
 help_text = "Extract subset of fields from model for embedding text"
-description_text = "Extract a desired subset of fields and collapse repeated key:value pairs to key: 'value1;value2;value3,...'"
+description_text = """Extract a desired subset of fields and collapse repeated
+key:value pairs to key: 'value1;; value2;; value3,...'.
+
+The subset of fields is specified in a file (--path-file) as a set of 
+   key-value pairs. Output "flattens" nested dict to simple dict with
+   new keys.
+   
+"""
 
 models_str = ", ".join(MODEL_REGISTRY.keys())
 
